@@ -1,22 +1,22 @@
 <template>
-	<div>
+	<div class="user-menu-container">
 		<div class="navbar-item">
 			<div class="field is-grouped">
-				<p class="control">
-					<a v-if="!isUserLoggedIn" class="button" @click="showSignupModal">
-						<span class="icon">
+				<p class="control user-menu" v-if="!isUserLoggedIn" @click="toSignupPage">
+					<!-- <a v-if="!isUserLoggedIn" @click="toSignupPage"> -->
+						<!-- <span class="icon">
 							<i class="fa fa-user-plus"></i>
-						</span>
+						</span> -->
 						<span>{{ signupLabel }}</span>
-					</a>
+					<!-- </a> -->
 				</p>
-				<p class="control">
-					<a v-if="!isUserLoggedIn" class="button" @click="showLoginModal">
-						<span class="icon">
+				<p class="control user-menu" v-if="!isUserLoggedIn" @click="toLoginPage">
+					<!-- <a v-if="!isUserLoggedIn" @click="toLoginPage"> -->
+						<!-- <span class="icon">
 							<i class="fa fa-user"></i>
-						</span>
+						</span> -->
 						<span>{{ loginLabel }}</span>
-					</a>
+					<!-- </a> -->
 				</p>
 			</div>
 		</div>
@@ -73,13 +73,27 @@ export default {
 			// redirect to homepage
 			this.$router.push({ name: 'index' });
 		},
-		showLoginModal () {
-			this.$store.commit('showLoginModal', true);
+		toLoginPage () {
+			// this.$store.commit('toLoginPage', true);
+			this.$router.push({ name: 'login' });
 		},
-		showSignupModal () {
-			this.$store.commit('showSignupModal', true);
+		toSignupPage () {
+			// this.$store.commit('toSignupPage', true);
+			this.$router.push({ name: 'signup' });
 		}
 	}
 }
 </script>
+
+<style lang="scss" scoped>
+  .user-menu-container {
+    display: flex;
+  }
+	
+	.user-menu {
+		cursor: pointer;
+		color: #FFFFFF;
+		margin: 0 15px;
+	}
+</style>
 

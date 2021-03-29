@@ -1,16 +1,14 @@
 <template>
   <div>
-    <div class="card-image">
-      <figure class="image is-4by3">
-        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-      </figure>
+    <div class="card-image image-container">
+      <img :src="getImageUrl(product.image)" alt="Placeholder image">
     </div>
     <div class="card-content">
       <div class="media">
         <div class="media-content">
           <p class="title is-4">{{ product.title }}</p>
         </div>
-        <div>
+        <!-- <div>
           <button class="button is-small" :title="removeFromFavouriteLabel" v-show="product.isFavourite" @click="removeFromFavourite(product.id)">
             <span class="icon is-small">
               <i class="fa fa-heart"></i>
@@ -21,7 +19,7 @@
               <i class="fa fa-heart-o"></i>
             </span>
           </button>
-        </div>
+        </div> -->
       </div>
       <div class="content is-clearfix">
         <p>{{ product.description }}</p>
@@ -44,7 +42,7 @@
           <p>{{ product.reviews > 0 ? `${product.reviews} Reviews` : 'No reviews' }}</p>
         </div>
         <p class="is-pulled-right">
-          <span class="title is-4"><strong>&euro; {{ product.price }}</strong></span>
+          <span class="title is-4"><strong>&#3647; {{ product.price }}</strong></span>
         </p>
       </div>
       <div class="card-footer btn-actions">
@@ -88,8 +86,8 @@ export default {
     return {
       addToCartLabel: 'Add to cart',
       viewDetailsLabel: 'Details',
-      removeFromCartLabel: 'Remove from cart',
-      addToFavouriteLabel: 'Add to favourite',
+      // removeFromCartLabel: 'Remove from cart',
+      // addToFavouriteLabel: 'Add to favourite',
       removeFromFavouriteLabel: 'Remove from favourite',
       selected: 1,
       quantityArray: []
@@ -129,30 +127,39 @@ export default {
       this.$store.commit('removeFromCart', id);
       this.$store.commit('setAddedBtn', data);
     },
-    saveToFavorite (id) {
-      let isUserLogged = this.$store.state.userInfo.isLoggedIn;
+    // saveToFavorite (id) {
+    //   let isUserLogged = this.$store.state.userInfo.isLoggedIn;
 
-      if (isUserLogged) {
-        this.$store.commit('addToFavourite', id);
-      } else {
-        this.$store.commit('showLoginModal', true);
-      }
-    },
-    removeFromFavourite (id) {
-      this.$store.commit('removeFromFavourite', id);
-    },
+    //   if (isUserLogged) {
+    //     this.$store.commit('addToFavourite', id);
+    //   } else {
+    //     this.$store.commit('showLoginModal', true);
+    //   }
+    // },
+    // removeFromFavourite (id) {
+    //   this.$store.commit('removeFromFavourite', id);
+    // },
     onSelectQuantity (id) {
       let data = {
         id: id,
         quantity: this.selected
       }
       this.$store.commit('quantity', data);
+    },
+    getImageUrl(imgName) {
+      var images = require.context('../static/', false, /\.jpeg$/)
+      return images('./' + imgName)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+  .image-container img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+  }
  .details {
     cursor: pointer;
     position: absolute;

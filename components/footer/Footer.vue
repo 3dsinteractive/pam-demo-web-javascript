@@ -5,7 +5,7 @@
         <p>Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.</p>
       </div>
     <div class="column has-text-right">
-      <p>Vuemmerce | Made with ❤</p>
+      <p>Adapted from Vuemmerce</p>
     </div>
     </div>
   </div>
@@ -19,7 +19,9 @@ export default {
 
 <style lang="scss" scoped>
  .footer {
-   background: #b9e2fc;
-   color: black;
+   margin-top: 30px;
+   background: #0081cb;
+   color: #FFFFFF;
+   padding: 50px calc((100vw - 1140px) / 2) 100px;
  }
 </style>

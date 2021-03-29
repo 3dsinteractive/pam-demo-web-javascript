@@ -2,7 +2,7 @@
   <div class="section">
     <div class="card is-clearfix columns">
         <figure class="card-image is-480x480 column is-one-thirds">
-          <img src="https://bulma.io/images/placeholders/480x480.png">
+          <img src="../../static/product-img-01.jpeg" alt="Placeholder image">
         </figure>
         <div class="card-content column is-two-thirds">
           <div class="card-content__title">
@@ -142,6 +142,10 @@ export default {
     },
     removeFromFavourite (id) {
       this.$store.commit('removeFromFavourite', id);
+    },
+    getImageUrl(imgName) {
+      var images = require.context('../../static/', false, /\.jpeg$/)
+      return images('./' + imgName)
     }
   }
 };

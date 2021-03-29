@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-container">
+    <nav class="navbar is-fixed-top navbar-custom" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <nuxt-link :to="{ name: 'index' }" class="navbar-item">
           <h1 class="title is-3 is-flex-mobile"></h1>
@@ -21,7 +21,7 @@
         </div>
         
         <div class="navbar-end">
-          <div class="navbar-item social">
+          <!-- <div class="navbar-item social">
             <a href="#" class="icon" :title="facebookTooltip">
               <i class="fa fa-facebook"></i>
             </a>
@@ -34,7 +34,7 @@
             <a href="#" class="icon" :title="linkedinTooltip">
               <i class="fa fa-linkedin"></i>
             </a>
-          </div>
+          </div> -->
           <div class="navbar-item shopping-cart" @click="showCheckoutModal">
             <span class="icon">
               <i class="fa fa-shopping-cart"></i>
@@ -95,12 +95,22 @@
 </script>
 
 <style lang="scss" scoped>
+  .navbar-container {
+    
+  }
+  .navbar {
+    background-color: #00B0FE !important;
+  }
+  .navbar-custom {
+    box-shadow: 0 2px 4px #0000002c;
+    padding: 10px calc((100vw - 1140px) / 2);
+  }
   .title {
-    background: url('../../static/vuemmerce-logo.png') no-repeat;
+    background: url('../../static/boodabest-logo-white.svg') no-repeat;
     background-position: 50% 50%;
     background-size: 165px;
     width: 175px;
-    height: 35px;
+    height: 50px;
   }
   .shopping-cart {
     cursor: pointer;
