@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="purchase-btn-container">
-        <button class="button is-success is-medium">Purchase</button>
+        <button @click="onPurchase" class="button is-success is-medium">Purchase</button>
       </div>
     </div>
   </div>
@@ -136,7 +136,10 @@ export default {
     getImageUrl(imgName) {
       var images = require.context('../../static/', false, /\.jpeg$/)
       return images('./' + imgName)
-    }
+    },
+    toPurchasePage() {
+      
+    },
   },
 }
 </script>
