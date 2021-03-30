@@ -16,7 +16,7 @@ export default ({ app }, inject) => {
 
   inject('pam', pam)
 
-  app.router.afterEach(() => {
+  app.router.afterEach((to, from) => {
     pam.send('page_view', '', {})
       .then((res) => {
         // response
