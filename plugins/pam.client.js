@@ -5,11 +5,11 @@ export default ({ app }, inject) => {
   const config = {
     autoTracking: false,
     webPushPublicKey: '',
-    baseApi: '',
+    baseApi: 'https://stgx.pams.ai',
     pusherAlias: '',
-    consentMessageId: '',
-    publicDBAlias: '',
-    loginDBAlias: '',
+    consentMessageId: '1qHkMGcSLHcJxyqZXRq6ovIM8GV',
+    publicDBAlias: 'boodabest-public',
+    loginDBAlias: 'boodabest-login',
   }
 
   const pam = new Pam(config)
