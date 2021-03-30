@@ -1,8 +1,8 @@
-import Pam, { IConfig } from 'pam4-tracker'
+import Pam from 'pam4-tracker'
 
 export default ({ app }, inject) => {
   // TODO: fill these configs
-  const config: IConfig = {
+  const config = {
     autoTracking: false,
     webPushPublicKey: '',
     baseApi: '',

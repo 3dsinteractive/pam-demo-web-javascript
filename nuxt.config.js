@@ -72,7 +72,7 @@ module.exports = {
     /*
      ** Plugins to load before mounting the App
      */
-    plugins: ['~/plugins/pam'],
+    plugins: ['~/plugins/pam.client'],
 
     /*
      ** Nuxt.js modules
