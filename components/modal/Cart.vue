@@ -11,7 +11,7 @@
 					<div class="box" v-for="product in products" :key="product.id">
 						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.id)">{{ removeLabel }}</button>
 						<p>{{ product.title }}  {{ product.quantityInCart > 0 ?  ` - Quantity: ${product.quantityInCart}` : ''}}</p>
-						<p>{{ product.price }} &euro;</p>
+						<p>{{ product.price }} &#3647;</p>
 					</div>
 					<div v-if="products.length === 0">
 						<p>{{ cartEmptyLabel }}</p>
@@ -22,7 +22,7 @@
 				</div> -->
 			</section>
 			<footer class="modal-card-foot">
-				<button v-show="products.length > 0" class="button is-success" @click="onCheckout">{{ buyLabel }}&#3647;</button>
+				<button v-show="products.length > 0" class="button is-success checkout-btn" @click="onCheckout">Checkout</button>
 				<!-- <button v-if="isCartSection" class="button is-success" @click="closeModal(true)">{{ closeLabel }}</button> -->
 			</footer>
 		</div>
@@ -35,7 +35,7 @@ export default {
     
 	data () {
 		return {
-			modalTitle: 'Cart',
+			modalTitle: 'My Cart',
 			removeLabel: 'Remove from cart',
 			cartEmptyLabel: 'Your cart is empty',
 			closeLabel: 'Close',
@@ -120,3 +120,12 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+	.modal-card-body {
+		background-color: #51bafc;
+	}
+	.checkout-btn {
+		width: 50% !important;
+		margin: auto;
+	}
+</style>
