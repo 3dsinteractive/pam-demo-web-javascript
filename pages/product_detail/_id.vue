@@ -1,13 +1,14 @@
 <template>
+  <div>
   <div class="section">
-    <div class="card is-clearfix columns">
-        <figure class="card-image is-480x480 column is-one-thirds">
-          <img src="../../static/product-img-01.jpeg" alt="Placeholder image">
+    <div class="card is-clearfix main-product-container">
+        <figure class="card-image column is-two-fifths">
+          <img class="product-img" :src="getImageUrl(product.image)" alt="Placeholder image">
         </figure>
-        <div class="card-content column is-two-thirds">
+        <div class="column is-three-fifths">
           <div class="card-content__title">
-            <h2 class="title is-4">{{ product.title }}
-              <button class="button is-small" :title="removeFromFavouriteLabel" v-show="product.isFavourite" @click="removeFromFavourite(product.id)">
+            <h2 class="title is-3">{{ product.title }}
+              <!-- <button class="button is-small" :title="removeFromFavouriteLabel" v-show="product.isFavourite" @click="removeFromFavourite(product.id)">
                 <span class="icon is-small">
                   <i class="fa fa-heart"></i>
                 </span>
@@ -16,34 +17,31 @@
                 <span class="icon is-small">
                   <i class="fa fa-heart-o"></i>
                 </span>
-              </button>
+              </button> -->
             </h2>
           </div>
           <div class="card-content__text">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud
-            </p>
+            <p>{{product.fullDescription}}</p>
           </div>
-          <div class="card-content__ratings" v-if="product.rating === 1">
+          <div class="card-content__ratings" v-if="product.ratings === 1">
             <i class="fa fa-star"></i>
           </div>
-          <div class="card-content__ratings" v-else-if="product.rating === 2">
+          <div class="card-content__ratings" v-else-if="product.ratings === 2">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
           </div>
-          <div class="card-content__ratings" v-else-if="product.rating === 3">
+          <div class="card-content__ratings" v-else-if="product.ratings === 3">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
           </div>
-          <div class="card-content__ratings" v-else-if="product.rating === 4">
+          <div class="card-content__ratings" v-else-if="product.ratings === 4">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
           </div>
-          <div class="card-content__ratings" v-else-if="product.rating === 5">
+          <div class="card-content__ratings" v-else-if="product.ratings === 5">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
@@ -56,12 +54,12 @@
             </div>
             <div class="select is-rounded is-small is-pulled-right">
               <select @change="onSelectQuantity(product.id)" v-model="selected">
-                <option v-for="quantity in quantityArray" :value="quantity">{{ quantity }}</option>
+                <option v-for="(quantity,index) in quantityArray" :value="quantity" :key="index">{{ quantity }}</option>
               </select>
             </div>
           </div>
           <div class="card-content__price is-pulled-left">
-            <span class="title is-3"><strong>{{ product.price }}&euro;</strong></span>
+            <span class="title is-3"><strong>{{ product.price }}&#3647;</strong></span>
           </div>
           <div class="card-content__btn is-pulled-right">
             <button class="button is-primary" v-if="!isAddedBtn" @click="addToCart(product.id)">{{ addToCartLabel }}</button>
@@ -70,11 +68,17 @@
       </div>
     </div>
   </div>
+  <RelatedProducts :mainProductID="$route.params.id"></RelatedProducts>
+  </div>
 </template>
 
 <script>
+import RelatedProducts from '../../components/products_list/RelatedProductsListContainer';
+
 export default {
   name: 'product_detail-id',
+  
+  components: { RelatedProducts },
 
   validate ({ params }) {
     return /^\d+$/.test(params.id)
@@ -84,16 +88,19 @@ export default {
     return {
       addToCartLabel: 'Add to cart',
       removeFromCartLabel: 'Remove from cart',
-      addToFavouriteLabel: 'Add to favourite',
+      // addToFavouriteLabel: 'Add to favourite',
       removeFromFavouriteLabel: 'Remove from favourite',
       product: {},
       selected: 1,
       quantityArray: []
     };
   },
+  
+  created() {
+    this.product = this.$store.getters.getProductById(this.$route.params.id);
+  },
 
   mounted () {
-    this.product = this.$store.getters.getProductById(this.$route.params.id);
     this.selected = this.product.quantity;
 
     for (let i = 1; i <= 20; i++) {
@@ -135,7 +142,7 @@ export default {
       let isUserLogged = this.$store.state.userInfo.isLoggedIn;
 
       if (isUserLogged) {
-        this.$store.commit('addToFavourite', id);
+        // this.$store.commit('addToFavourite', id);
       } else {
         this.$store.commit('showLoginModal', true);
       }
@@ -144,14 +151,24 @@ export default {
       this.$store.commit('removeFromFavourite', id);
     },
     getImageUrl(imgName) {
-      var images = require.context('../../static/', false, /\.jpeg$/)
-      return images('./' + imgName)
-    }
+      var images = require.context('../../static/', false, /\.jpeg$/);
+      return images('./' + imgName);
+    },
   }
 };
 </script>
 
 <style lang="scss" scoped>
+  .section {
+    max-width: 1140px;
+    margin: auto;
+    margin-top: 120px;
+    padding: 0px !important;
+    // padding: 100px calc((100vw - 1140px) / 2);
+  }
+  .main-product-container {
+    display: flex;
+  }
   .card-content {
     padding: 15px 10px 15px 0;
 
@@ -163,6 +180,12 @@ export default {
       width: 100%;
       margin-bottom: 10px;
     }
+  }
+  .product-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: 50% 20%;
   }
 </style>
 

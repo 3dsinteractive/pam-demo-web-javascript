@@ -57,9 +57,9 @@
         </section>
         <footer class="footer-container">
           <button v-if="!isUserLoggedIn" type="submit" class="button is-info">{{ primaryBtnLabel }}</button>
-          <button v-if="isUserLoggedIn" type="button" class="button is-info" @click="closeModal">{{ btnLoggedInLabel }}</button>
+          <button v-if="isUserLoggedIn" type="button" class="button is-info" @click="toHomePage">{{ btnLoggedInLabel }}</button>
         </footer>
-        <div class="login-section-container">
+        <div v-if="!isUserLoggedIn" class="login-section-container">
           <p>Don’t have an account? <a href="#">Create one</a></p>
         </div>
       </div>
@@ -105,6 +105,9 @@ export default {
   },
 
   methods: {
+    toHomePage() {
+      this.$router.push({ name: 'index' });
+    },
     closeModal () {
       this.$store.commit('showLoginModal', false);
     },

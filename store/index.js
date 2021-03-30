@@ -3,12 +3,14 @@ export const state = () => ({
             id: 1,
             title: 'Product 1',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 50,
             ratings: 3,
             reviews: 5,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-01.jpeg'
         },
@@ -16,12 +18,14 @@ export const state = () => ({
             id: 2,
             title: 'Product 2',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 35,
             ratings: 5,
             reviews: 10,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-02.jpeg'
         },
@@ -29,12 +33,14 @@ export const state = () => ({
             id: 3,
             title: 'Product 3',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 110,
             ratings: 2,
             reviews: 3,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-03.jpeg'
         },
@@ -42,12 +48,14 @@ export const state = () => ({
             id: 4,
             title: 'Product 4',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 50,
             ratings: 1,
             reviews: 0,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-04.jpeg'
         },
@@ -55,12 +63,14 @@ export const state = () => ({
             id: 5,
             title: 'Product 5',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 35,
             ratings: 4,
             reviews: 2,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-05.jpeg'
         },
@@ -68,12 +78,14 @@ export const state = () => ({
             id: 6,
             title: 'Product 6',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 110,
             ratings: 5,
             reviews: 1,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-06.jpeg'
         },
@@ -81,12 +93,14 @@ export const state = () => ({
             id: 7,
             title: 'Product 7',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 50,
             ratings: 5,
             reviews: 7,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-07.jpeg'
         },
@@ -94,12 +108,14 @@ export const state = () => ({
             id: 8,
             title: 'Product 8',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 35,
             ratings: 3,
             reviews: 0,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-08.jpeg'
         },
@@ -107,12 +123,14 @@ export const state = () => ({
             id: 9,
             title: 'Product 9',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            fullDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut varius turpis. Donec eu volutpat mauris. In imperdiet condimentum felis ac tincidunt. Phasellus ut iaculis velit. Vestibulum sapien nisl, porttitor id luctus a, congue non dui. Ut non volutpat magna, quis ornare tortor. Nullam in tristique nibh. Cras non laoreet ligula. Suspendisse gravida tincidunt pellentesque. Aenean lobortis odio sem, commodo dignissim ante lacinia ut. Nulla suscipit velit ut est consectetur, ac ultricies velit consectetur. Integer massa leo, tempus dapibus massa in, convallis interdum turpis. Duis non imperdiet elit, et porta enim. Etiam interdum dui non ante rutrum pretium. Phasellus sodales porttitor sem. Duis et dapibus quam.',
             price: 110,
             ratings: 4,
             reviews: 2,
             isAddedToCart: false,
             isAddedBtn: false,
             isFavourite: false,
+            quantityInCart: 0,
             quantity: 1,
             image: 'product-img-09.jpeg'
         }
@@ -127,7 +145,7 @@ export const state = () => ({
     systemInfo: {
         openLoginModal: false,
         openSignupModal: false,
-        openCheckoutModal: false
+        openCartModal: false
     }
 })
 
@@ -160,8 +178,8 @@ export const getters = {
     isSignupModalOpen: state => {
         return state.systemInfo.openSignupModal;
     },
-    isCheckoutModalOpen: state => {
-        return state.systemInfo.openCheckoutModal;
+    isCartModalOpen: state => {
+        return state.systemInfo.openCartModal;
     },
     quantity: state => {
         return state.products.quantity;
@@ -173,6 +191,7 @@ export const mutations = {
             state.products.forEach(el => {
                 if (id === el.id) {
                     el.isAddedToCart = true;
+                    el.quantityInCart += el.quantity;
                 }
             });
         },
@@ -187,14 +206,29 @@ export const mutations = {
             state.products.forEach(el => {
                 if (id === el.id) {
                     el.isAddedToCart = false;
+                    el.quantityInCart = 0;
                 }
             });
         },
-        removeProductsFromFavourite: state => {
-            state.products.filter(el => {
-                el.isFavourite = false;
+        increaseQuantityOnCart: (state, data) => {
+            state.products.forEach(el => {
+                if (data.id === el.id) {
+                    el.quantityInCart += data.quantity;
+                }
             });
         },
+        decreaseQuantityOnCart: (state, data) => {
+            state.products.forEach(el => {
+                if (data.id === el.id) {
+                    el.quantityInCart -= data.quantity;
+                }
+            });
+        },
+        // removeProductsFromFavourite: state => {
+        //     state.products.filter(el => {
+        //         el.isFavourite = false;
+        //     });
+        // },
         isUserLoggedIn: (state, isUserLoggedIn) => {
             state.userInfo.isLoggedIn = isUserLoggedIn;
         },
@@ -216,16 +250,16 @@ export const mutations = {
         showSignupModal: (state, show) => {
             state.systemInfo.openSignupModal = show;
         },
-        showCheckoutModal: (state, show) => {
-            state.systemInfo.openCheckoutModal = show;
+        showCartModal: (state, show) => {
+            state.systemInfo.openCartModal = show;
         },
-        addToFavourite: (state, id) => {
-            state.products.forEach(el => {
-                if (id === el.id) {
-                    el.isFavourite = true;
-                }
-            });
-        },
+        // addToFavourite: (state, id) => {
+        //     state.products.forEach(el => {
+        //         if (id === el.id) {
+        //             el.isFavourite = true;
+        //         }
+        //     });
+        // },
         removeFromFavourite: (state, id) => {
             state.products.forEach(el => {
                 if (id === el.id) {

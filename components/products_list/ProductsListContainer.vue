@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-centered is-multiline">
     <div class="card column is-one-quarter" v-for="product in products" :key="product.id">
-      <VmProducts :product="product"></VmProducts>
+      <VmProducts :product="product" :isRelatedProduct="false"></VmProducts>
     </div>
     <div class="section" v-if="products.length === 0">
       <p>{{ noProductLabel }}</p>

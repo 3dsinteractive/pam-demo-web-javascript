@@ -1,6 +1,6 @@
 <template>
   <div class="navbar-container">
-    <nav class="navbar is-fixed-top navbar-custom" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-fixed-top navbar-custom is-transparent" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <nuxt-link :to="{ name: 'index' }" class="navbar-item">
           <h1 class="title is-3 is-flex-mobile"></h1>
@@ -35,7 +35,7 @@
               <i class="fa fa-linkedin"></i>
             </a>
           </div> -->
-          <div class="navbar-item shopping-cart" @click="showCheckoutModal">
+          <div class="navbar-item shopping-cart" @click="showCartModal">
             <span class="icon">
               <i class="fa fa-shopping-cart"></i>
             </span>
@@ -70,7 +70,7 @@
         facebookTooltip: 'Follow us on Facebook',
         twitterTooltip: 'Follow us on Twitter',
         instagramTooltip: 'Follow us on Instagram',
-        isCheckoutActive: false,
+        isCartActive: false,
         isMenuOpen: false
       }
     },
@@ -87,8 +87,8 @@
     },
 
     methods: {
-      showCheckoutModal () {
-        this.$store.commit('showCheckoutModal', true);
+      showCartModal () {
+        this.$store.commit('showCartModal', true);
       }
     }
   };
@@ -114,6 +114,8 @@
   }
   .shopping-cart {
     cursor: pointer;
+    color: #FFFFFF;
+    font-size: 16px;
   }
   a {
     color: grey;

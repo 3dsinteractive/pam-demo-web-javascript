@@ -22,13 +22,13 @@
 		</div>
 		<div v-if="isUserLoggedIn" class="navbar-item has-dropdown is-hoverable">
 			<a class="navbar-link">
-			Welcome {{ getUserName }}
+				Welcome {{ getUserName }}
 			</a>
 			<div class="navbar-dropdown is-boxed">
-				<nuxt-link class="navbar-item" :to="{ name: 'user-wishlist' }">
+				<!-- <nuxt-link class="navbar-item" :to="{ name: 'user-wishlist' }">
 					{{ wishlistLabel }}
 				</nuxt-link>
-				<hr class="navbar-divider">
+				<hr class="navbar-divider"> -->
 				<a class="navbar-item" @click="logout">
 					{{ logoutLabel }}
 				</a>
@@ -68,7 +68,7 @@ export default {
 		logout () {
 			this.$store.commit('isUserLoggedIn', false);
 			this.$store.commit('isUserSignedUp', false);
-			this.$store.commit('removeProductsFromFavourite');
+			// this.$store.commit('removeProductsFromFavourite');
 
 			// redirect to homepage
 			this.$router.push({ name: 'index' });
@@ -88,8 +88,15 @@ export default {
 <style lang="scss" scoped>
   .user-menu-container {
     display: flex;
+		color: #FFFFFF !important;
   }
-	
+	.navbar-link {
+		text-decoration: none;
+		color: #FFFFFF !important;
+	}
+	// .navbar-link:hover {
+	// 	background-color: none;
+	// }
 	.user-menu {
 		cursor: pointer;
 		color: #FFFFFF;

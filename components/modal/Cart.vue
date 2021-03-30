@@ -7,23 +7,23 @@
 				<button class="delete" aria-label="close" @click="closeModal(false)"></button>
 			</header>
 			<section class="modal-card-body">
-				<div v-if="!isCheckoutSection">
+				<div>
 					<div class="box" v-for="product in products" :key="product.id">
 						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.id)">{{ removeLabel }}</button>
-						<p>{{ product.title }}  {{ product.quantity > 0 ?  ` - Quantity: ${product.quantity}` : ''}}</p>
+						<p>{{ product.title }}  {{ product.quantityInCart > 0 ?  ` - Quantity: ${product.quantityInCart}` : ''}}</p>
 						<p>{{ product.price }} &euro;</p>
 					</div>
 					<div v-if="products.length === 0">
 						<p>{{ cartEmptyLabel }}</p>
 					</div>
 				</div>
-				<div v-if="isCheckoutSection">
+				<!-- <div v-if="isCartSection">
 					<p>You bought it :-)</p>
-				</div>
+				</div> -->
 			</section>
 			<footer class="modal-card-foot">
-				<button v-show="products.length > 0 && !isCheckoutSection" class="button is-success" @click="onNextBtn">{{ buyLabel }}</button>
-				<button v-if="isCheckoutSection" class="button is-success" @click="closeModal(true)">{{ closeLabel }}</button>
+				<button v-show="products.length > 0" class="button is-success" @click="onCheckout">{{ buyLabel }}&#3647;</button>
+				<!-- <button v-if="isCartSection" class="button is-success" @click="closeModal(true)">{{ closeLabel }}</button> -->
 			</footer>
 		</div>
 	</div>
@@ -31,15 +31,15 @@
 
 <script>
 export default {
-	name: 'checkout',
+	name: 'cart',
     
 	data () {
 		return {
-			modalTitle: 'Checkout',
+			modalTitle: 'Cart',
 			removeLabel: 'Remove from cart',
 			cartEmptyLabel: 'Your cart is empty',
 			closeLabel: 'Close',
-			isCheckoutSection: false
+			isCartSection: false
 		}
 	},
 
@@ -48,7 +48,7 @@ export default {
 				return this.$store.getters.productsAdded;
 			},
 			openModal () {
-				if (this.$store.getters.isCheckoutModalOpen) {
+				if (this.$store.getters.isCartModalOpen) {
 					return true;
 				} else {
 					return false;
@@ -64,8 +64,8 @@ export default {
 
 				productsAdded.forEach(product => {
 
-					if (product.quantity >= 1) {
-						quantity = product.quantity;
+					if (product.quantityInCart >= 1) {
+						quantity = product.quantityInCart;
 					}
 
 					pricesArray.push((product.price * quantity)); // get the price of every product added and multiply quantity
@@ -78,7 +78,7 @@ export default {
 				} else {
 					productLabel = 'product';
 				}
-				return `Buy ${totalProducts} ${productLabel} at ${finalPrice}€`;
+				return `Checkout ${totalProducts} ${productLabel} at ${finalPrice}`;
 		},
 		isUserLoggedIn () {
 			return this.$store.getters.isUserLoggedIn;
@@ -87,7 +87,7 @@ export default {
 
 	methods: {
 		closeModal (reloadPage) {
-			this.$store.commit('showCheckoutModal', false);
+			this.$store.commit('showCartModal', false);
 
 			if (reloadPage) {
 				window.location.reload();
@@ -101,16 +101,20 @@ export default {
 			this.$store.commit('removeFromCart', id);
 			this.$store.commit('setAddedBtn', data);
 		},
-		onNextBtn () {
+		toCheckoutPage() {
+			this.$router.push({ name: 'checkout' });
+			this.$store.commit('showCartModal', false);
+		},
+		onCheckout () {
 			if (this.isUserLoggedIn) {
-				this.isCheckoutSection = true;
+				this.toCheckoutPage();
 			} else {
-				this.$store.commit('showCheckoutModal', false);
+				this.$store.commit('showCartModal', false);
 				this.$store.commit('showLoginModal', true);
 			}
 		},
 		onPrevBtn () {
-			this.isCheckoutSection = false;
+			this.isCartSection = false;
 		}
 	}
 }

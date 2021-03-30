@@ -4,7 +4,7 @@
       <img :src="getImageUrl(product.image)" alt="Placeholder image">
     </div>
     <div class="card-content">
-      <div class="media">
+      <div class="media product-title">
         <div class="media-content">
           <p class="title is-4">{{ product.title }}</p>
         </div>
@@ -23,7 +23,7 @@
       </div>
       <div class="content is-clearfix">
         <p>{{ product.description }}</p>
-        <div class="is-pulled-left">
+        <div class="is-pulled-left" v-if="!isRelatedProduct">
           <i v-if="product.ratings === 1" class="fa fa-star"></i>
           <i v-if="product.ratings === 2" class="fa fa-star"></i>
           <i v-if="product.ratings === 2" class="fa fa-star"></i>
@@ -42,18 +42,18 @@
           <p>{{ product.reviews > 0 ? `${product.reviews} Reviews` : 'No reviews' }}</p>
         </div>
         <p class="is-pulled-right">
-          <span class="title is-4"><strong>&#3647; {{ product.price }}</strong></span>
+          <span class="title is-4"><strong>{{ product.price }}&#3647;</strong></span>
         </p>
       </div>
-      <div class="card-footer btn-actions">
+      <div v-if="!isRelatedProduct" class="card-footer btn-actions">
         <div class="card-footer-item field is-grouped">
           <div class="buttons">
-            <button class="button is-primary" v-if="!product.isAddedToCart" @click="addToCart(product.id)">{{ addToCartLabel }}</button>
-            <button class="button is-text" v-if="product.isAddedToCart" @click="removeFromCart(product.id, false)">{{ removeFromCartLabel }}</button>
+            <button class="button is-primary" @click="addToCart(product.id)">{{ addToCartLabel }}</button>
+            <!-- <button class="button is-text" v-if="product.isAddedToCart" @click="removeFromCart(product.id, false)">{{ removeFromCartLabel }}</button> -->
           </div>
            <div class="select is-rounded is-small">
             <select @change="onSelectQuantity(product.id)" v-model="selected">
-              <option v-for="quantity in quantityArray" :value="quantity">{{ quantity }}</option>
+              <option v-for="(quantity,index) in quantityArray" :value="quantity" :key="index">{{ quantity }}</option>
             </select>
           </div>
         </div>
@@ -80,7 +80,7 @@
 <script>
 export default {
   name: 'products',
-  props: ['product'],
+  props: ['product','isRelatedProduct'],
 
   data () {
     return {
@@ -114,7 +114,7 @@ export default {
     addToCart (id) {
       let data = {
         id: id,
-        status: true
+        status: false
       }
       this.$store.commit('addToCart', id);
       this.$store.commit('setAddedBtn', data);
@@ -160,34 +160,40 @@ export default {
     height: 350px;
     object-fit: cover;
   }
- .details {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+  .details {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
 
-    &:hover {
-      border: 1px solid #51bafc;
-    }
- }
- .button,
- .select {
-   z-index: 2;
- }
- .select {
-   position: absolute;
-   right: 15px;
-   bottom: 35px;
- }
- .card-content {
-   padding: 0;
- }
- .buttons {
-   margin: 0;
- }
+      &:hover {
+        border: 1px solid #51bafc;
+      }
+  }
+  .button,
+  .select {
+    z-index: 2;
+  }
+  .select {
+    position: absolute;
+    right: 15px;
+    bottom: 35px;
+  }
+  .card-content {
+    padding: 0;
+  }
+  .buttons {
+    margin: 0;
+  }
+  .product-title {
+    margin: 10px 0 15px !important;
+  }
+  .card-footer-item {
+    padding-left: 0px !important;
+  }
 </style>
 
 
