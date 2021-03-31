@@ -301,3 +301,15 @@ export const mutations = {
         commit("SET_USER", res.data)
       }
     } */
+
+    export const actions = {
+        async addToCart({ commit }, id) {
+            commit('addToCart', id);
+            this.$pam.send('add_to_cart', '', { product_id: id });
+        },
+
+        async removeFromCart({ commit }, id) {
+            commit('removeFromCart', id);
+            this.$pam.send('remove_from_cart', '', { product_id: id })
+        }
+    }
