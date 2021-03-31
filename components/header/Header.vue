@@ -95,9 +95,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .navbar-container {
-    
-  }
   .navbar {
     background-color: #00B0FE !important;
   }

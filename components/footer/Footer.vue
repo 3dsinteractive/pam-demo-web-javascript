@@ -19,10 +19,8 @@ export default {
 
 <style lang="scss" scoped>
   .footer {
-    margin-top: 50px;
     background: #0081cb;
     color: #FFFFFF;
-    //  padding: 50px calc((100vw - 1140px) / 2) 100px;
   }
   .container {
     max-width: 1140px !important;

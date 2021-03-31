@@ -210,6 +210,12 @@ export const mutations = {
                 }
             });
         },
+        clearCart: (state) => {
+            state.products.forEach(el => {
+                el.isAddedToCart = false;
+                el.quantityInCart = 0;
+            });
+        },
         increaseQuantityOnCart: (state, data) => {
             state.products.forEach(el => {
                 if (data.id === el.id) {

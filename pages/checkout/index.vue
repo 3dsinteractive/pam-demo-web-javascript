@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="purchase-btn-container">
-        <button @click="onPurchase" class="button is-success is-medium">Purchase</button>
+        <button @click="toPurchasePage" class="button is-success is-medium">Purchase</button>
       </div>
     </div>
   </div>
@@ -138,7 +138,8 @@ export default {
       return images('./' + imgName)
     },
     toPurchasePage() {
-      
+      this.$router.push({ name: 'thankyou' });
+      this.$store.commit('clearCart');
     },
   },
 }
