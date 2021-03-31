@@ -93,6 +93,11 @@ export default {
       }
     },
     submitForm() {
+      const mobileNo = this.$route.query.mobile
+      if (!mobileNo) {
+        return
+      }
+
       for (let topic of this.acceptedConsent) {
         let payload = {
           consent_message_id: this.inputLabel[topic].consentMessageID,
@@ -102,10 +107,11 @@ export default {
             privacy_overview: true,
             email: true,
             sms: true,
-          }
+          },
+          database: 'call-center-login'
         }
-        console.log(this.$route.query.mobile);
-        this.$pam.consentManager.submitConsent(payload);
+
+        this.$pam.consentManager.submitConsent(payload, { sms: mobileNo });
       }
     },
   },
