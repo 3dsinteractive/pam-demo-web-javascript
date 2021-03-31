@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="button-container">
-        <div class="select-all-btn-container">
+        <div class="select-all-btn-container" @click="checkAll" @mouseover="bodyHighlight">
           <span>Select all</span>
         </div>
         <div class="accept-btn-container" @click="submitForm">
@@ -79,7 +79,11 @@ export default {
   
   methods: {
     checkAll() {
-      
+      for (let topic in this.inputLabel) {
+        if (!this.acceptedConsent.includes(topic)) {
+          this.acceptedConsent.push(topic);
+        }
+      }
     },
     submitForm() {
       for (let topic of this.acceptedConsent) {
@@ -93,9 +97,13 @@ export default {
             sms: true,
           }
         }
-        this.$pam.submitConsent(payload);
+        // this.$pam.send()
+        this.$pam.ConsentManager.submitConsent(payload);
       }
     },
+    bodyHighlight() {
+      
+    }
   },
 }
 </script>
