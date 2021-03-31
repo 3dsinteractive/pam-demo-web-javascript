@@ -104,13 +104,10 @@ export default {
             sms: true,
           }
         }
-        // this.$pam.send()
-        // this.$pam.consentManager.submitConsent(payload);
+        console.log(this.$route.query.mobile);
+        this.$pam.consentManager.submitConsent(payload);
       }
     },
-    bodyHighlight() {
-      
-    }
   },
 }
 </script>
