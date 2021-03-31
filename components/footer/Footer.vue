@@ -4,9 +4,9 @@
       <div class="column">
         <p>Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.</p>
       </div>
-    <div class="column has-text-right">
-      <p>Vuemmerce | Made with ❤</p>
-    </div>
+      <div class="column has-text-right">
+        <p>Adapted from Vuemmerce</p>
+      </div>
     </div>
   </div>
 </template>
@@ -18,8 +18,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- .footer {
-   background: #b9e2fc;
-   color: black;
- }
+  .footer {
+    background: #0081cb;
+    color: #FFFFFF;
+  }
+  .container {
+    max-width: 1140px !important;
+    margin: auto;
+  }
 </style>

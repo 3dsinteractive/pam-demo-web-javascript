@@ -1,34 +1,34 @@
 <template>
-	<div>
+	<div class="user-menu-container">
 		<div class="navbar-item">
 			<div class="field is-grouped">
-				<p class="control">
-					<a v-if="!isUserLoggedIn" class="button" @click="showSignupModal">
-						<span class="icon">
+				<p class="control user-menu" v-if="!isUserLoggedIn" @click="toSignupPage">
+					<!-- <a v-if="!isUserLoggedIn" @click="toSignupPage"> -->
+						<!-- <span class="icon">
 							<i class="fa fa-user-plus"></i>
-						</span>
+						</span> -->
 						<span>{{ signupLabel }}</span>
-					</a>
+					<!-- </a> -->
 				</p>
-				<p class="control">
-					<a v-if="!isUserLoggedIn" class="button" @click="showLoginModal">
-						<span class="icon">
+				<p class="control user-menu" v-if="!isUserLoggedIn" @click="toLoginPage">
+					<!-- <a v-if="!isUserLoggedIn" @click="toLoginPage"> -->
+						<!-- <span class="icon">
 							<i class="fa fa-user"></i>
-						</span>
+						</span> -->
 						<span>{{ loginLabel }}</span>
-					</a>
+					<!-- </a> -->
 				</p>
 			</div>
 		</div>
 		<div v-if="isUserLoggedIn" class="navbar-item has-dropdown is-hoverable">
 			<a class="navbar-link">
-			Welcome {{ getUserName }}
+				Welcome {{ getUserName }}
 			</a>
 			<div class="navbar-dropdown is-boxed">
-				<nuxt-link class="navbar-item" :to="{ name: 'user-wishlist' }">
+				<!-- <nuxt-link class="navbar-item" :to="{ name: 'user-wishlist' }">
 					{{ wishlistLabel }}
 				</nuxt-link>
-				<hr class="navbar-divider">
+				<hr class="navbar-divider"> -->
 				<a class="navbar-item" @click="logout">
 					{{ logoutLabel }}
 				</a>
@@ -68,18 +68,39 @@ export default {
 		logout () {
 			this.$store.commit('isUserLoggedIn', false);
 			this.$store.commit('isUserSignedUp', false);
-			this.$store.commit('removeProductsFromFavourite');
+			// this.$store.commit('removeProductsFromFavourite');
 
 			// redirect to homepage
 			this.$router.push({ name: 'index' });
 		},
-		showLoginModal () {
-			this.$store.commit('showLoginModal', true);
+		toLoginPage () {
+			// this.$store.commit('toLoginPage', true);
+			this.$router.push({ name: 'login' });
 		},
-		showSignupModal () {
-			this.$store.commit('showSignupModal', true);
+		toSignupPage () {
+			// this.$store.commit('toSignupPage', true);
+			this.$router.push({ name: 'signup' });
 		}
 	}
 }
 </script>
+
+<style lang="scss" scoped>
+  .user-menu-container {
+    display: flex;
+		color: #FFFFFF !important;
+  }
+	.navbar-link {
+		text-decoration: none;
+		color: #FFFFFF !important;
+	}
+	// .navbar-link:hover {
+	// 	background-color: none;
+	// }
+	.user-menu {
+		cursor: pointer;
+		color: #FFFFFF;
+		margin: 0 15px;
+	}
+</style>
 

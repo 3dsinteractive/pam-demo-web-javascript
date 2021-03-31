@@ -5,7 +5,7 @@
       <nuxt/>
       <VmLoginModal></VmLoginModal>
       <VmRegistrationModal></VmRegistrationModal>
-      <VmCheckoutModal></VmCheckoutModal>
+      <VmCartModal></VmCartModal>
     </main>
     <VmFooter></VmFooter>
   </div>
@@ -16,7 +16,7 @@ import VmHeader from '@/components/header/Header';
 import VmFooter from '@/components/footer/Footer';
 import VmLoginModal from '@/components/modal/Login';
 import VmRegistrationModal from '@/components/modal/Registration';
-import VmCheckoutModal from '@/components/modal/Checkout';
+import VmCartModal from '@/components/modal/Cart';
 
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
     VmFooter,
     VmLoginModal,
     VmRegistrationModal,
-    VmCheckoutModal
+    VmCartModal
   }
 }
 </script>
