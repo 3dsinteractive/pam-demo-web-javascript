@@ -7,7 +7,7 @@ function commit() {
 }
 
 function build_demoecommerce() {
-    local IMAGE=3dsinteractive/pam4-demo:ecommerce-stg-1.0
-    docker build -t $IMAGE.$TIMESTAMP .
+    local IMAGE=3dsinteractive/pam4-demo
+    docker build -t $IMAGE:$NAMESPACE-$APP_VERSION.$TIMESTAMP .
     commit $IMAGE
 }
