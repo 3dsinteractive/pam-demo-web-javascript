@@ -8,6 +8,6 @@ function commit() {
 
 function build_demoecommerce() {
     local IMAGE=3dsinteractive/pam4-demo
-    docker build -t $IMAGE:$NAMESPACE-$APP_VERSION.$TIMESTAMP .
+    docker build -t $IMAGE:pam-demo-web.$TIMESTAMP .
     commit $IMAGE
 }
