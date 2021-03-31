@@ -104,6 +104,7 @@ export default {
             sms: true,
           }
         }
+        console.log(this.$route.query.mobile);
         this.$pam.consentManager.submitConsent(payload);
       }
     },
