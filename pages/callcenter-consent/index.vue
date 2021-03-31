@@ -5,7 +5,7 @@
         <p>I agree to receive <b>marketing communication</b> from these companies.</p>
       </div>
       <div class="field">
-        <div class="control checkbox-container">
+        <div class="control checkbox-container" :class="{bodyHighlight: activebodyHighlight}">
           <label v-for="(item,key) in inputLabel" class="checkbox" :key="key">
             <input type="checkbox" :id="key" :value="key" v-model="acceptedConsent">
             {{inputLabel[key].label}}
@@ -13,7 +13,13 @@
         </div>
       </div>
       <div class="button-container">
-        <div class="select-all-btn-container" @click="checkAll" @mouseover="bodyHighlight">
+        <div
+          class="select-all-btn-container"
+          @click="checkAll"
+          @mouseover="activebodyHighlight = true"
+          @mouseleave="activebodyHighlight = false"
+          :class="{bodyHighlight: activebodyHighlight}"
+        >
           <span>Select all</span>
         </div>
         <div class="accept-btn-container" @click="submitForm">
@@ -31,6 +37,7 @@ export default {
   
   data () {
     return {
+      activebodyHighlight: false,
       acceptedConsent: [],
       inputLabel: {
         delivery: {
@@ -69,7 +76,7 @@ export default {
           consentMessageID: "1qWPOpqSXOmaTG5ByvtXmRTuZIH"
         },
         affiliatedCompany: {
-          label: "The affiliated Company",
+          label: "The Affiliated Company",
           value: "affiliatedCompany",
           consentMessageID: "1qWPWq9yCl9KBjU3u5WO4zYQ9sV"
         }
@@ -98,7 +105,7 @@ export default {
           }
         }
         // this.$pam.send()
-        this.$pam.ConsentManager.submitConsent(payload);
+        // this.$pam.consentManager.submitConsent(payload);
       }
     },
     bodyHighlight() {
@@ -129,6 +136,9 @@ export default {
     border-radius: 14px 14px 0 0;
     background-color: #00B0FE;
     padding: 25px 30px;
+  }
+  .field {
+    margin: 0 !important;
   }
   .checkbox-container {
     display: flex;
@@ -172,6 +182,9 @@ export default {
   }
   .accept-btn-container:hover {
     background-color: #48c78e;
+  }
+  .bodyHighlight {
+    background-color: #e4f7ff !important;
   }
 </style>
 
