@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "nuxt",
         "build": "nuxt build",
-        "now-build": "nuxt generate"
+        "now-build": "nuxt generate",
+        "start": "nuxt start"
     },
     "repository": {
         "type": "git",

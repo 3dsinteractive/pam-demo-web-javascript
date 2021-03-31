@@ -1,13 +1,16 @@
 FROM node:14.16-alpine3.11
-
 WORKDIR /app
 
 COPY . .
 
-RUN yarn install --production
-
+RUN yarn add nuxt
+RUN yarn
 RUN yarn build
+CMD yarn start
 
-EXPOSE 8080
+# FROM node:12.13.0-alpine
 
-CMD [ "yarn", "start" ]
+# WORKDIR /app
+# COPY --from=0 /app/.nuxt/dist/client/ /app/
+# COPY --from=0 /app/package*.json /app
+# CMD yarn start
