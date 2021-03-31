@@ -148,7 +148,8 @@ export default {
 <style lang="scss" scoped>
   .checkout-container {
     max-width: 1140px;
-    margin: 150px auto 70px;
+    margin: 150px auto 0;
+    min-height: calc(100vh - 300px);
   }
   .field-container {
     display: flex;

@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-centered is-multiline">
+  <div class="columns is-centered is-multiline product-list-container">
     <div class="card column is-one-quarter" v-for="product in products" :key="product.id">
       <VmProducts :product="product" :isRelatedProduct="false"></VmProducts>
     </div>
@@ -51,5 +51,8 @@ export default {
 <style lang="scss" scoped>
   .card {
     margin: 10px;
+  }
+  .product-list-container {
+    margin-bottom: 30px;
   }
 </style>
