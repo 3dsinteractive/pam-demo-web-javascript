@@ -8,6 +8,9 @@ RUN yarn
 
 RUN yarn build
 
-EXPOSE 3000
+FROM node:14.16-alpine3.11
 
-CMD [ "yarn", "start" ]
+WORKDIR /app
+COPY --from=0 /app/.nuxt/dist/client/ /app/
+
+CMD yarn start
