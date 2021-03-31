@@ -104,13 +104,9 @@ export default {
             sms: true,
           }
         }
-        // this.$pam.send()
-        // this.$pam.consentManager.submitConsent(payload);
+        this.$pam.consentManager.submitConsent(payload);
       }
     },
-    bodyHighlight() {
-      
-    }
   },
 }
 </script>
