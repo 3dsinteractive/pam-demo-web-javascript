@@ -138,6 +138,10 @@ export default {
       return images('./' + imgName)
     },
     toPurchasePage() {
+      this.$pam.send('purchase_success', '', {
+        'product_ids': this.products.join(','),
+        'amount': this.getGrandTotal()
+      })
       this.$router.push({ name: 'thankyou' });
       this.$store.commit('clearCart');
     },

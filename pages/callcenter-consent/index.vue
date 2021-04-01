@@ -92,7 +92,7 @@ export default {
         }
       }
     },
-    submitForm() {
+    async submitForm() {
       const mobileNo = this.$route.query.mobile
       if (!mobileNo) {
         return
@@ -112,7 +112,7 @@ export default {
           database: 'call-center-login'
         }
 
-        this.$pam.consentManager.submitConsent(payload, { sms: mobileNo });
+        await this.$pam.consentManager.submitConsent(payload, { sms: mobileNo });
       }
     },
   },
