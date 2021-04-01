@@ -13,36 +13,22 @@
         </a>
       </div>
 
-      <div class="navbar-menu is-active">
+      <!-- <div class="navbar-menu is-active">
         <div class="navbar-start">
           <div class="navbar-item field">
             <VmSearch></VmSearch>
           </div>
-        </div>
+        </div> -->
         
-        <div class="navbar-end">
-          <!-- <div class="navbar-item social">
-            <a href="#" class="icon" :title="facebookTooltip">
-              <i class="fa fa-facebook"></i>
-            </a>
-            <a href="#" class="icon" :title="twitterTooltip">
-              <i class="fa fa-twitter"></i>
-            </a>
-            <a href="#" class="icon" :title="instagramTooltip">
-              <i class="fa fa-instagram"></i>
-            </a>
-            <a href="#" class="icon" :title="linkedinTooltip">
-              <i class="fa fa-linkedin"></i>
-            </a>
-          </div> -->
+        <!-- <div class="navbar-end">
           <div class="navbar-item shopping-cart" @click="showCartModal">
             <span class="icon">
               <i class="fa fa-shopping-cart"></i>
             </span>
             <span :class="[numProductsAdded > 0 ? 'tag is-info' : '']">{{ numProductsAdded }}</span>
           </div>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
 
       <!-- For mobile and tablet -->
       <div v-show="isMenuOpen" class="navbar-end">

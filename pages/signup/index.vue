@@ -101,7 +101,7 @@
           <button v-if="isUserSignedUp" type="button" class="button is-info" @click="closeModal">{{ btnRegisteredLabel }}</button>
         </footer>
         <div class="login-section-container">
-          <p>Already registered? <a href="#">Login</a></p>
+          <p>Already registered? <a @click="toLoginPage">Login</a></p>
         </div>
       </div>
     </div>
@@ -239,7 +239,10 @@ export default {
       } else {
         this.highlightRepeatPasswordWithError = true;
       }
-    }
+    },
+    toLoginPage() {
+      this.$router.push({ name: 'login' });
+    },
   }
 }
 </script>

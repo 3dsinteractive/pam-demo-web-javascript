@@ -189,6 +189,14 @@ export default {
   .bodyHighlight {
     background-color: #e4f7ff !important;
   }
+    @media screen and (max-width: 600px) {
+      .page-container {
+        padding: 100px 20px 0;
+      }
+    // .accept-btn-container, .select-all-btn-container, .checkbox-container {
+    //   border-radius: 0px;
+    // }
+  }
 </style>
 
 
