@@ -98,15 +98,16 @@ export default {
         return
       }
 
-      for (let topic of this.acceptedConsent) {
+      for (let topic in this.inputLabel) {
+        const isEnabled = this.acceptedConsent.includes(topic);
         let payload = {
           consent_message_id: this.inputLabel[topic].consentMessageID,
           version: 1,
           permission: {
-            terms_and_conditions: true,
-            privacy_overview: true,
-            email: true,
-            sms: true,
+            terms_and_conditions: isEnabled,
+            privacy_overview: isEnabled,
+            email: isEnabled,
+            sms: isEnabled,
           },
           database: 'call-center-login'
         }
@@ -189,13 +190,10 @@ export default {
   .bodyHighlight {
     background-color: #e4f7ff !important;
   }
-    @media screen and (max-width: 600px) {
-      .page-container {
-        padding: 100px 20px 0;
-      }
-    // .accept-btn-container, .select-all-btn-container, .checkbox-container {
-    //   border-radius: 0px;
-    // }
+  @media screen and (max-width: 575px) {
+    .page-container {
+      padding: 100px 20px 0;
+    }
   }
 </style>
 
