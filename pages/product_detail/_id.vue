@@ -120,7 +120,7 @@ export default {
         id: id,
         status: true
       }
-      this.$store.commit('addToCart', id);
+      this.$store.dispatch('addToCart', id);
       this.$store.commit('setAddedBtn', data);
     },
     removeFromCart (id) {

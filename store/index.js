@@ -311,5 +311,17 @@ export const mutations = {
         async removeFromCart({ commit }, id) {
             commit('removeFromCart', id);
             this.$pam.send('remove_from_cart', '', { product_id: id })
-        }
+        },
+
+        async login({ commit }, { idKey, id }) {
+            
+        },
+
+        async register({ commit }, { idKey, id, consentIds }) {
+            
+        },
+
+        async logout({ commit }, { idKey, id }) {
+
+        },
     }
