@@ -83,13 +83,13 @@
           </div>
           <div v-if="!isUserSignedUp" class="agreementation-container">
             <div class="consent-checkbox-container">
-              <input type="checkbox" value="1qZBgGUvpBI4heCPQzfocNyuY1D" v-model="acceptedConsent" @click="consentToggle('1qZBgGUvpBI4heCPQzfocNyuY1D')">
+              <input type="checkbox" id="1qZBgGUvpBI4heCPQzfocNyuY1D" value="1qZBgGUvpBI4heCPQzfocNyuY1D" v-model="acceptedConsent" @click="consentToggle('1qZBgGUvpBI4heCPQzfocNyuY1D')">
               <label>
                 I agree to the <a @click="() => popupConsentModal('1qZBgGUvpBI4heCPQzfocNyuY1D')">terms and conditions.</a>
               </label>
             </div>
             <div class="consent-checkbox-container">
-              <input type="checkbox" value="1qZCeSoXiawAYwTz5mmop5YyJWf" v-model="acceptedConsent" @click="consentToggle('1qZCeSoXiawAYwTz5mmop5YyJWf')">
+              <input type="checkbox" id="1qZCeSoXiawAYwTz5mmop5YyJWf" value="1qZCeSoXiawAYwTz5mmop5YyJWf" v-model="acceptedConsent" @click="consentToggle('1qZCeSoXiawAYwTz5mmop5YyJWf')">
               <label>
                 I agree to the <a @click="() => popupConsentModal('1qZCeSoXiawAYwTz5mmop5YyJWf')">privacy policy.</a>
               </label>
