@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       activebodyHighlight: false,
-      acceptedConsent: [],
+      acceptedConsent: ['delivery','pizzaCompany','swensens','burgerKing','sizzler','dairyQueen','bonchon','affiliatedCompany'],
       inputLabel: {
         delivery: {
           label: "1112 Delivery",
