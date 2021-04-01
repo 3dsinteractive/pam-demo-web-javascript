@@ -108,9 +108,9 @@ export default {
     toHomePage() {
       this.$router.push({ name: 'index' });
     },
-    closeModal () {
-      this.$store.commit('showLoginModal', false);
-    },
+    // closeModal () {
+    //   this.$store.commit('showLoginModal', false);
+    // },
     checkForm (e) {
       e.preventDefault();
 

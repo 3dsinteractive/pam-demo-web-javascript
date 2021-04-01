@@ -81,11 +81,19 @@
               <p v-if="highlightRepeatPasswordWithError" class="help is-danger">{{ notEqualErrorLabel }}</p>
             </div>
           </div>
-          <div class="agreementation-container">
-            <label class="checkbox">
-              <input type="checkbox">
-              I agree to the <a href="#">privacy policy.</a>
-            </label>
+          <div v-if="!isUserSignedUp" class="agreementation-container">
+            <div class="consent-checkbox-container">
+              <input type="checkbox" value="1qZBgGUvpBI4heCPQzfocNyuY1D" v-model="acceptedConsent" @click="consentToggle('1qZBgGUvpBI4heCPQzfocNyuY1D')">
+              <label>
+                I agree to the <a @click="() => popupConsentModal('1qZBgGUvpBI4heCPQzfocNyuY1D')">terms and conditions.</a>
+              </label>
+            </div>
+            <div class="consent-checkbox-container">
+              <input type="checkbox" value="1qZCeSoXiawAYwTz5mmop5YyJWf" v-model="acceptedConsent" @click="consentToggle('1qZCeSoXiawAYwTz5mmop5YyJWf')">
+              <label>
+                I agree to the <a @click="() => popupConsentModal('1qZCeSoXiawAYwTz5mmop5YyJWf')">privacy policy.</a>
+              </label>
+            </div>
           </div>
           <div v-if="isUserSignedUp" class="level">
             <div class="level-item has-text-centered">
@@ -98,9 +106,9 @@
         </section>
         <footer class="footer-container">
           <button v-if="!isUserSignedUp" class="button is-success">{{ primaryBtnLabel }}</button>
-          <button v-if="isUserSignedUp" type="button" class="button is-info" @click="closeModal">{{ btnRegisteredLabel }}</button>
+          <button v-if="isUserSignedUp" type="button" class="button is-info" @click="toHomePage">{{ btnRegisteredLabel }}</button>
         </footer>
-        <div class="login-section-container">
+        <div v-if="!isUserSignedUp" class="login-section-container">
           <p>Already registered? <a @click="toLoginPage">Login</a></p>
         </div>
       </div>
@@ -137,8 +145,19 @@ export default {
       highlightEmailWithError: null,
       highlightPasswordWithError: null,
       highlightRepeatPasswordWithError: null,
-      isFormSuccess: false
+      isFormSuccess: false,
+      popUpCollection: {},
+      acceptedConsent: [],
     };
+  },
+  
+  async mounted() {
+    // let initPopUp1, initPopUp2;
+    await this.$pam.consentManager.createPopup('1qZBgGUvpBI4heCPQzfocNyuY1D',false,this.consentValidate).then((popUp) => {this.popUpCollection['1qZBgGUvpBI4heCPQzfocNyuY1D'] = popUp});
+    await this.$pam.consentManager.createPopup('1qZCeSoXiawAYwTz5mmop5YyJWf',false,this.consentValidate).then((popUp) => {this.popUpCollection['1qZCeSoXiawAYwTz5mmop5YyJWf'] = popUp});
+    await this.popUpCollection['1qZBgGUvpBI4heCPQzfocNyuY1D'].renderOnlyPopup();
+    await this.popUpCollection['1qZCeSoXiawAYwTz5mmop5YyJWf'].renderOnlyPopup();
+    // this.init();
   },
 
   computed: {
@@ -155,8 +174,27 @@ export default {
   },
 
   methods: {
-    closeModal () {
-      this.$store.commit('showSignupModal', false);
+    init() {
+      this.popUpCollection['1qZBgGUvpBI4heCPQzfocNyuY1D'].unAcceptAllConsent();
+      this.popUpCollection['1qZCeSoXiawAYwTz5mmop5YyJWf'].unAcceptAllConsent();
+    },
+    consentValidate(prev,state) {
+      console.log(prev);
+      console.log(state);
+    },
+    popupConsentModal(consentMsgID) {
+      this.popUpCollection[consentMsgID].renderOnlyPopup();
+    },
+    consentToggle(consentMsgID) {
+      // console.log(this.acceptedConsent)
+      // if (this.acceptedConsent.includes(consentMsgID)) {
+      //   console.log('xxx')
+      //   this.popUpCollection[consentMsgID].acceptAllConsent(false);
+      // } else {
+      //   console.log('yyy')
+      //   this.popUpCollection[consentMsgID].unAcceptAllConsent();
+      // }
+      // console.log(this.acceptedConsent)
     },
     checkForm (e) {
       e.preventDefault();
@@ -240,6 +278,9 @@ export default {
         this.highlightRepeatPasswordWithError = true;
       }
     },
+    toHomePage() {
+      this.$router.push({ name: 'index' });
+    },
     toLoginPage() {
       this.$router.push({ name: 'login' });
     },
@@ -282,6 +323,19 @@ export default {
 }
 .fa-check {
   color: green;
+}
+.footer-container {
+  margin-top: 20px;
+}
+.consent-checkbox-container {
+  display: flex;
+  align-items: center;
+}
+.consent-checkbox-container input {
+  margin-right: 5px;
+}
+.consent-checkbox-container:not(:last-child) {
+  margin-bottom: 10px;
 }
 </style>
 
