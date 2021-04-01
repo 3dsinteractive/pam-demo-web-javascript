@@ -79,13 +79,15 @@ module.exports = {
      */
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/font-awesome'
+        '@nuxtjs/font-awesome',
+        '@nuxtjs/axios'
     ],
     /*
      ** Axios module configuration
      */
     axios: {
         // See https://github.com/nuxt-community/axios-module#options
+        baseURL: 'https://demo-server-b.pams.ai'
     },
 
     server: {

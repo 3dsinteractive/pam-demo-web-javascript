@@ -66,12 +66,7 @@ export default {
 
 	methods: {
 		logout () {
-			this.$store.commit('isUserLoggedIn', false);
-			this.$store.commit('isUserSignedUp', false);
-			// this.$store.commit('removeProductsFromFavourite');
-
-			// redirect to homepage
-			this.$router.push({ name: 'index' });
+			this.$store.dispatch('logout')
 		},
 		toLoginPage () {
 			// this.$store.commit('toLoginPage', true);
