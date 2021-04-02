@@ -32,8 +32,10 @@
                   type="email"
                   :placeholder="emailPlaceholder"
                   name="emailName"
+                  id="emailName"
                   v-model="email"
                   @keyup="checkEmailOnKeyUp(email)"
+                  autocomplete="off"
                 >
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
@@ -49,9 +51,11 @@
                 <input
                   :class="[highlightPasswordWithError ? 'input is-danger' : 'input']"
                   type="password"
+                  id="password"
                   :placeholder="passwordPlaceholder"
                   v-model="password"
                   @keyup="checkPasswordOnKeyUp(password)"
+                  autocomplete="off"
                 >
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
@@ -82,16 +86,10 @@
             </div>
           </div>
           <div v-if="!isUserSignedUp" class="agreementation-container">
-            <div class="consent-checkbox-container">
-              <input type="checkbox" value="1qZBgGUvpBI4heCPQzfocNyuY1D" v-model="acceptedConsent" @click="consentToggle('1qZBgGUvpBI4heCPQzfocNyuY1D')">
+            <div v-for="(value,id) in this.contactingConsentData" :key="id" class="consent-checkbox-container">
+              <input type="checkbox" :id="id" :value="id" v-model="acceptedConsent" @click="consentChecking(id)">
               <label>
-                I agree to the <a @click="() => popupConsentModal('1qZBgGUvpBI4heCPQzfocNyuY1D')">terms and conditions.</a>
-              </label>
-            </div>
-            <div class="consent-checkbox-container">
-              <input type="checkbox" value="1qZCeSoXiawAYwTz5mmop5YyJWf" v-model="acceptedConsent" @click="consentToggle('1qZCeSoXiawAYwTz5mmop5YyJWf')">
-              <label>
-                I agree to the <a @click="() => popupConsentModal('1qZCeSoXiawAYwTz5mmop5YyJWf')">privacy policy.</a>
+                I agree to the <a @click="() => popupConsentModal(id)">{{value.name}}</a>
               </label>
             </div>
           </div>
@@ -105,7 +103,7 @@
           </div>
         </section>
         <footer class="footer-container">
-          <button v-if="!isUserSignedUp" class="button is-success">{{ primaryBtnLabel }}</button>
+          <button v-if="!isUserSignedUp" class="button is-success" :disabled="!this.consentComplete">{{ primaryBtnLabel }}</button>
           <button v-if="isUserSignedUp" type="button" class="button is-info" @click="toHomePage">{{ btnRegisteredLabel }}</button>
         </footer>
         <div v-if="!isUserSignedUp" class="login-section-container">
@@ -146,60 +144,89 @@ export default {
       highlightPasswordWithError: null,
       highlightRepeatPasswordWithError: null,
       isFormSuccess: false,
+      contactingConsentData: {
+        '1qZBgGUvpBI4heCPQzfocNyuY1D': {
+          name: 'terms and conditions.',
+          submitBody: {}
+        },
+        '1qZCeSoXiawAYwTz5mmop5YyJWf': {
+          name: 'privacy policy.',
+          submitBody: {}
+        }
+      },
       popUpCollection: {},
       acceptedConsent: [],
+      checkingBoxID: '',
+      consentComplete: false,
+      onChecking: false,
     };
   },
   
   async mounted() {
-    // let initPopUp1, initPopUp2;
-    await this.$pam.consentManager.createPopup('1qZBgGUvpBI4heCPQzfocNyuY1D',false,this.consentValidate).then((popUp) => {this.popUpCollection['1qZBgGUvpBI4heCPQzfocNyuY1D'] = popUp});
-    await this.$pam.consentManager.createPopup('1qZCeSoXiawAYwTz5mmop5YyJWf',false,this.consentValidate).then((popUp) => {this.popUpCollection['1qZCeSoXiawAYwTz5mmop5YyJWf'] = popUp});
-    await this.popUpCollection['1qZBgGUvpBI4heCPQzfocNyuY1D'].renderOnlyPopup();
-    await this.popUpCollection['1qZCeSoXiawAYwTz5mmop5YyJWf'].renderOnlyPopup();
-    // this.init();
+    for (let id in this.contactingConsentData) {
+      await this.$pam.consentManager.createPopup(id,false,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
+      await this.popUpCollection[id].renderOnlyPopup();
+      await this.popUpCollection[id].unAcceptAllConsent();
+    }
   },
 
   computed: {
     isUserSignedUp () {
       return this.$store.getters.isUserSignedUp;
     },
-    // openModal () {
-    //   if (this.$store.getters.isSignupModalOpen) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
   },
 
   methods: {
-    init() {
-      this.popUpCollection['1qZBgGUvpBI4heCPQzfocNyuY1D'].unAcceptAllConsent();
-      this.popUpCollection['1qZCeSoXiawAYwTz5mmop5YyJWf'].unAcceptAllConsent();
-    },
-    consentValidate(prev,state) {
-      console.log(prev);
-      console.log(state);
+    sdkCallback(prev,state) {
+      this.contactingConsentData[state.consent_message_id].submitBody = { ...state };
+      this.consentValidate();
+      
+      // Checking consent box
+      if (
+        state.permission?.['terms_and_conditions'] && 
+        state.permission?.['privacy_overview']
+      ) {
+        if (!this.acceptedConsent.includes(state.consent_message_id)) {
+          this.acceptedConsent.push(state.consent_message_id);
+        }
+      }
     },
     popupConsentModal(consentMsgID) {
+      this.onChecking = false
       this.popUpCollection[consentMsgID].renderOnlyPopup();
     },
-    consentToggle(consentMsgID) {
-      // console.log(this.acceptedConsent)
-      // if (this.acceptedConsent.includes(consentMsgID)) {
-      //   console.log('xxx')
-      //   this.popUpCollection[consentMsgID].acceptAllConsent(false);
-      // } else {
-      //   console.log('yyy')
-      //   this.popUpCollection[consentMsgID].unAcceptAllConsent();
-      // }
-      // console.log(this.acceptedConsent)
+    consentChecking(consentMsgID) {
+      this.onChecking = true;
+      this.checkingBoxID = consentMsgID;
+    },
+    consentValidate() {
+      if (this.acceptedConsent.length == Object.keys(this.contactingConsentData).length) {
+        let counter = 0;
+        for (let consentID in this.contactingConsentData) {
+          if (
+            this.contactingConsentData[consentID].submitBody.permission?.['terms_and_conditions'] && 
+            this.contactingConsentData[consentID].submitBody.permission?.['privacy_overview']
+          ) {
+            counter += 1;
+          }
+        }
+        if (Object.keys(this.contactingConsentData).length == counter) {
+          this.consentComplete = true;
+        }
+      } else {
+        this.consentComplete = false;
+      }
     },
     checkForm (e) {
       e.preventDefault();
+      
+      this.consentValidate();
 
-      if (this.name && this.email && this.password && this.repeatPassword) {
+      if (this.name && this.email && this.password && this.repeatPassword && this.consentComplete) {
+        for (let consentID in this.contactingConsentData) {
+          this.$pam.consentManager.submitConsent(this.contactingConsentData[consentID].submitBody);
+        }
+        
         this.highlightEmailWithError = false;
         this.highlightPasswordWithError = false;
         // this.isFormSuccess = true;
@@ -291,6 +318,18 @@ export default {
     toLoginPage() {
       this.$router.push({ name: 'login' });
     },
+  },
+  
+  watch: {
+      acceptedConsent: async function () {
+        if (this.onChecking) {
+          if (this.acceptedConsent.includes(this.checkingBoxID)) {
+              await this.popUpCollection[this.checkingBoxID].acceptAllConsent(false); 
+          } else {
+            await this.popUpCollection[this.checkingBoxID].unAcceptAllConsent();
+          }
+        }
+      }
   }
 }
 </script>
