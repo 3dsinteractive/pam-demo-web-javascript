@@ -32,6 +32,7 @@
                   type="email"
                   :placeholder="emailPlaceholder"
                   name="emailName"
+                  id="emailName"
                   v-model="email"
                   @keyup="checkEmailOnKeyUp(email)"
                   autocomplete="off"
@@ -50,6 +51,7 @@
                 <input
                   :class="[highlightPasswordWithError ? 'input is-danger' : 'input']"
                   type="password"
+                  id="password"
                   :placeholder="passwordPlaceholder"
                   v-model="password"
                   @keyup="checkPasswordOnKeyUp(password)"
@@ -101,7 +103,7 @@
           </div>
         </section>
         <footer class="footer-container">
-          <button v-if="!isUserSignedUp" class="button is-success">{{ primaryBtnLabel }}</button>
+          <button v-if="!isUserSignedUp" class="button is-success" :disabled="!this.consentComplete">{{ primaryBtnLabel }}</button>
           <button v-if="isUserSignedUp" type="button" class="button is-info" @click="toHomePage">{{ btnRegisteredLabel }}</button>
         </footer>
         <div v-if="!isUserSignedUp" class="login-section-container">
@@ -145,24 +147,24 @@ export default {
       contactingConsentData: {
         '1qZBgGUvpBI4heCPQzfocNyuY1D': {
           name: 'terms and conditions.',
-          version: 1,
-          permission: {},
+          submitBody: {}
         },
         '1qZCeSoXiawAYwTz5mmop5YyJWf': {
           name: 'privacy policy.',
-          version: 1,
-          permission: {},
+          submitBody: {}
         }
       },
       popUpCollection: {},
       acceptedConsent: [],
       checkingBoxID: '',
+      consentComplete: false,
+      onChecking: false,
     };
   },
   
   async mounted() {
     for (let id in this.contactingConsentData) {
-      await this.$pam.consentManager.createPopup(id,false,this.consentValidate).then((popUp) => {this.popUpCollection[id] = popUp});
+      await this.$pam.consentManager.createPopup(id,false,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
       await this.popUpCollection[id].renderOnlyPopup();
       await this.popUpCollection[id].unAcceptAllConsent();
     }
@@ -175,22 +177,56 @@ export default {
   },
 
   methods: {
-    consentValidate(prev,state) {
-      console.log(prev);
-      console.log(state);
+    sdkCallback(prev,state) {
+      this.contactingConsentData[state.consent_message_id].submitBody = { ...state };
+      this.consentValidate();
+      
+      // Checking consent box
+      if (
+        state.permission?.['terms_and_conditions'] && 
+        state.permission?.['privacy_overview']
+      ) {
+        if (!this.acceptedConsent.includes(state.consent_message_id)) {
+          this.acceptedConsent.push(state.consent_message_id);
+        }
+      }
     },
     popupConsentModal(consentMsgID) {
+      this.onChecking = false
       this.popUpCollection[consentMsgID].renderOnlyPopup();
     },
     consentChecking(consentMsgID) {
+      this.onChecking = true;
       this.checkingBoxID = consentMsgID;
+    },
+    consentValidate() {
+      if (this.acceptedConsent.length == Object.keys(this.contactingConsentData).length) {
+        let counter = 0;
+        for (let consentID in this.contactingConsentData) {
+          if (
+            this.contactingConsentData[consentID].submitBody.permission?.['terms_and_conditions'] && 
+            this.contactingConsentData[consentID].submitBody.permission?.['privacy_overview']
+          ) {
+            counter += 1;
+          }
+        }
+        if (Object.keys(this.contactingConsentData).length == counter) {
+          this.consentComplete = true;
+        }
+      } else {
+        this.consentComplete = false;
+      }
     },
     checkForm (e) {
       e.preventDefault();
       
-      // this.$pam.consentManager.submitConsentPermission(body)
+      this.consentValidate();
 
-      if (this.name && this.email && this.password && this.repeatPassword) {
+      if (this.name && this.email && this.password && this.repeatPassword && this.consentComplete) {
+        for (let consentID in this.contactingConsentData) {
+          this.$pam.consentManager.submitConsent(this.contactingConsentData[consentID].submitBody);
+        }
+        
         this.highlightEmailWithError = false;
         this.highlightPasswordWithError = false;
         this.isFormSuccess = true;
@@ -278,11 +314,13 @@ export default {
   },
   
   watch: {
-      acceptedConsent: function () {
-        if (this.acceptedConsent.includes(this.checkingBoxID)) {
-          this.popUpCollection[this.checkingBoxID].acceptAllConsent(false);
-        } else {
-          this.popUpCollection[this.checkingBoxID].unAcceptAllConsent();
+      acceptedConsent: async function () {
+        if (this.onChecking) {
+          if (this.acceptedConsent.includes(this.checkingBoxID)) {
+              await this.popUpCollection[this.checkingBoxID].acceptAllConsent(false); 
+          } else {
+            await this.popUpCollection[this.checkingBoxID].unAcceptAllConsent();
+          }
         }
       }
   }
