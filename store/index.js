@@ -313,15 +313,32 @@ export const mutations = {
             this.$pam.send('remove_from_cart', '', { product_id: id })
         },
 
-        async login({ commit }, { idKey, id }) {
-            
+        async login({ commit }, { email, password }) {
+            const req = { email, password }
+            const { data } = await this.$axios.post('/login', req)
+            await this.$pam.userManager.login({
+                idKey: 'customer',
+                id: data.data.customer_id
+            })
+            commit('isUserLoggedIn', true)
+            commit('setUserName', email)
         },
 
-        async register({ commit }, { idKey, id, consentIds }) {
-            
+        async signup({ commit }, { email, password, consentIds }) {
+            const req = {
+                email,
+                mobile: '',
+                password,
+                consent_ids: consentIds.join(',')
+            }
+            const { data } = await this.$axios.post('/register', req)
+            commit('isUserSignedUp', true)
         },
 
-        async logout({ commit }, { idKey, id }) {
-
+        async logout({ commit }) {
+            await this.$pam.userManager.logout()
+            commit('isUserLoggedIn', false)
+            commit('isUserSignedUp', false)
+            this.$router.push({ name: 'index' });
         },
     }

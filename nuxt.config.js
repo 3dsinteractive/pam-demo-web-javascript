@@ -1,8 +1,6 @@
 const pkg = require('./package')
 
 module.exports = {
-    mode: 'universal',
-
     /*
      ** Headers of the page
      */
@@ -79,13 +77,15 @@ module.exports = {
      */
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/font-awesome'
+        '@nuxtjs/font-awesome',
+        '@nuxtjs/axios'
     ],
     /*
      ** Axios module configuration
      */
     axios: {
         // See https://github.com/nuxt-community/axios-module#options
+        baseURL: 'https://pam-demo-server-b.pams.ai'
     },
 
     server: {

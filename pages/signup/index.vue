@@ -229,10 +229,10 @@ export default {
         
         this.highlightEmailWithError = false;
         this.highlightPasswordWithError = false;
-        this.isFormSuccess = true;
-        this.$store.commit('setUserName', this.name);
-        this.$store.commit('isUserSignedUp', this.isFormSuccess);
-        this.$store.commit('isUserLoggedIn', this.isFormSuccess);
+        // this.isFormSuccess = true;
+        // this.$store.commit('setUserName', this.name);
+        // this.$store.commit('isUserSignedUp', this.isFormSuccess);
+        // this.$store.commit('isUserLoggedIn', this.isFormSuccess);
       }
 
       if (!this.name) {
@@ -262,6 +262,13 @@ export default {
       } else {
         this.highlightRepeatPasswordWithError = false;
       }
+
+      this.$store.dispatch('signup', {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        consentIds: []
+      })
     },
     checkNameOnKeyUp (nameValue) {
       if (nameValue) {

@@ -115,7 +115,7 @@ export default {
         this.highlightEmailWithError = false;
         this.highlightPasswordWithError = false;
         this.isFormSuccess = true;
-        this.$store.commit('isUserLoggedIn', this.isFormSuccess);
+        // this.$store.commit('isUserLoggedIn', this.isFormSuccess);
       }
 
       if (!this.email) {
@@ -133,6 +133,7 @@ export default {
       } else {
         this.highlightPasswordWithError = false;
       }
+      this.$store.dispatch('login', { email: this.email, password: this.password })
     },
     checkEmailOnKeyUp (emailValue) {
       if (emailValue && isValidEmail(emailValue)) {
