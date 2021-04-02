@@ -85,7 +85,7 @@ module.exports = {
      */
     axios: {
         // See https://github.com/nuxt-community/axios-module#options
-        baseURL: 'https://pam-demo-server-b.pams.ai'
+        baseURL: 'https://demo-server-b.pams.ai'
     },
 
     server: {
