@@ -202,10 +202,10 @@ export default {
     consentValidate() {
       if (this.acceptedConsent.length == Object.keys(this.contactingConsentData).length) {
         let counter = 0;
-        for (let consentID in this.contactingConsentData) {
+        for (let consentMsgID in this.contactingConsentData) {
           if (
-            this.contactingConsentData[consentID].submitBody.permission?.['terms_and_conditions'] && 
-            this.contactingConsentData[consentID].submitBody.permission?.['privacy_overview']
+            this.contactingConsentData[consentMsgID].submitBody.permission?.['terms_and_conditions'] && 
+            this.contactingConsentData[consentMsgID].submitBody.permission?.['privacy_overview']
           ) {
             counter += 1;
           }
@@ -217,18 +217,27 @@ export default {
         this.consentComplete = false;
       }
     },
-    checkForm (e) {
+    async checkForm (e) {
       e.preventDefault();
       
       this.consentValidate();
 
       if (this.name && this.email && this.password && this.repeatPassword && this.consentComplete) {
-        for (let consentID in this.contactingConsentData) {
-          this.$pam.consentManager.submitConsent(this.contactingConsentData[consentID].submitBody);
+        let consentIDs = [];
+        for (let consentMsgID in this.contactingConsentData) {
+          let res = await this.popUpCollection[consentMsgID].submitConsent();
+          consentIDs.push(res.consent_id);
         }
         
         this.highlightEmailWithError = false;
         this.highlightPasswordWithError = false;
+        
+        this.$store.dispatch('signup', {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          consentIds: consentIDs,
+        })
         // this.isFormSuccess = true;
         // this.$store.commit('setUserName', this.name);
         // this.$store.commit('isUserSignedUp', this.isFormSuccess);
@@ -262,13 +271,6 @@ export default {
       } else {
         this.highlightRepeatPasswordWithError = false;
       }
-
-      this.$store.dispatch('signup', {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        consentIds: []
-      })
     },
     checkNameOnKeyUp (nameValue) {
       if (nameValue) {
