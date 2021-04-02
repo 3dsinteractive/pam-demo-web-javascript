@@ -1,8 +1,6 @@
 const pkg = require('./package')
 
 module.exports = {
-    mode: 'universal',
-
     /*
      ** Headers of the page
      */
@@ -87,7 +85,7 @@ module.exports = {
      */
     axios: {
         // See https://github.com/nuxt-community/axios-module#options
-        baseURL: 'https://demo-server-b.pams.ai'
+        baseURL: 'https://pam-demo-server-b.pams.ai'
     },
 
     server: {
