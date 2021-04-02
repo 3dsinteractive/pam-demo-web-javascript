@@ -139,7 +139,7 @@ export default {
     },
     toPurchasePage() {
       this.$pam.send('purchase_success', '', {
-        'product_ids': this.products.join(','),
+        'product_ids': this.products.map(p => p.id).join(','),
         'amount': this.getGrandTotal()
       })
       this.$router.push({ name: 'thankyou' });
