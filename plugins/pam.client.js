@@ -25,4 +25,8 @@ export default ({ app }, inject) => {
         // handle error
       })
   })
+
+  window.onNuxtReady(() => {
+    pam.consentManager.setLoginState(false)
+  })
 }
