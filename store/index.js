@@ -316,7 +316,7 @@ export const mutations = {
         async login({ commit }, { email, password }) {
             const req = { email, password }
             const { data } = await this.$axios.post('/login', req)
-            await this.$pam.userManager.login({
+            await this.$pam.consentManager.userLogin({
                 idKey: 'customer',
                 id: data.data.customer_id
             })
@@ -336,7 +336,7 @@ export const mutations = {
         },
 
         async logout({ commit }) {
-            await this.$pam.userManager.logout()
+            await this.$pam.consentManager.userLogout()
             commit('isUserLoggedIn', false)
             commit('isUserSignedUp', false)
             this.$router.push({ name: 'index' });
