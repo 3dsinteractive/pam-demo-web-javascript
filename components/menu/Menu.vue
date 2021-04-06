@@ -25,7 +25,7 @@
 						</button>
           </div>
 					
-					<div class="dropdown-menu" id="dropdown-menu" role="menu">
+					<div class="dropdown-menu sub-dropdown-a" id="dropdown-menu" role="menu">
 						<div class="dropdown-content">
 							<a v-for="(consentMsgData,id) in consentData" :key="id" @click="() => popupConsentModal(id)" class="dropdown-item">
 								{{consentMsgData.name}}
@@ -61,7 +61,7 @@
 						</button>
           </div>
 					
-					<div class="dropdown-menu" id="dropdown-menu" role="menu">
+					<div class="dropdown-menu sub-dropdown-b" id="dropdown-menu" role="menu">
 						<div class="dropdown-content">
 							<a v-for="(consentMsgData,id) in consentData" :key="id" @click="() => popupConsentModal(id)" class="dropdown-item">
 								{{consentMsgData.name}}
@@ -92,14 +92,14 @@ export default {
           name: 'Consent for Tracking',
 					initData: {},
         },
-        // '1qZBgGUvpBI4heCPQzfocNyuY1D': {
-        //   name: 'Consent for Contacting 1',
-				// 	initData: {},
-        // },
-        // '1qZCeSoXiawAYwTz5mmop5YyJWf': {
-        //   name: 'Consent for Contacting 2',
-				// 	initData: {},
-        // }
+        '1qZBgGUvpBI4heCPQzfocNyuY1D': {
+          name: 'Consent for Contacting 1',
+					initData: {},
+        },
+        '1qZCeSoXiawAYwTz5mmop5YyJWf': {
+          name: 'Consent for Contacting 2',
+					initData: {},
+        }
       },
 			popUpCollection: {},
 		}
@@ -192,6 +192,11 @@ export default {
 		}
 		.dropdown-menu {
 			top: -11px;
+		}
+		.sub-dropdown-a {
+			margin-left: -148%;
+		}
+		.sub-dropdown-b {
 			margin-left: -118%;
 		}
 		.dropdown-trigger {
