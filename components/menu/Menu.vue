@@ -27,7 +27,7 @@
 					
 					<div class="dropdown-menu" id="dropdown-menu" role="menu">
 						<div class="dropdown-content">
-							<a v-for="(consentMsgData,id) in consentData" :key="id" @click="() => popupConsentModal(consentMsgID)" class="dropdown-item">
+							<a v-for="(consentMsgData,id) in consentData" :key="id" @click="() => popupConsentModal(id)" class="dropdown-item">
 								{{consentMsgData.name}}
 							</a>
 						</div>
@@ -63,8 +63,8 @@
 					
 					<div class="dropdown-menu" id="dropdown-menu" role="menu">
 						<div class="dropdown-content">
-							<a v-for="consentMsgID in consentData" :key="consentMsgID" @click="() => popupConsentModal(consentMsgID)" class="dropdown-item">
-								{{consentData[consentMsgID].name}}
+							<a v-for="(consentMsgData,id) in consentData" :key="id" @click="() => popupConsentModal(id)" class="dropdown-item">
+								{{consentMsgData.name}}
 							</a>
 						</div>
 					</div>
@@ -90,19 +90,16 @@ export default {
 			consentData: {
         '1qHkMGcSLHcJxyqZXRq6ovIM8GV': {
           name: 'Consent for Tracking',
-          submitBody: {},
 					initData: {},
         },
-        '1qZBgGUvpBI4heCPQzfocNyuY1D': {
-          name: 'Consent for Contacting 1',
-          submitBody: {},
-					initData: {},
-        },
-        '1qZCeSoXiawAYwTz5mmop5YyJWf': {
-          name: 'Consent for Contacting 2',
-          submitBody: {},
-					initData: {},
-        }
+        // '1qZBgGUvpBI4heCPQzfocNyuY1D': {
+        //   name: 'Consent for Contacting 1',
+				// 	initData: {},
+        // },
+        // '1qZCeSoXiawAYwTz5mmop5YyJWf': {
+        //   name: 'Consent for Contacting 2',
+				// 	initData: {},
+        // }
       },
 			popUpCollection: {},
 		}
@@ -110,10 +107,17 @@ export default {
 	
   async mounted() {
     for (let id in this.consentData) {
-			await this.$pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
-      await this.$pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
-      await this.popUpCollection[id].renderOnlyPopup();
-      // await this.popUpCollection[id].unAcceptAllConsent();
+			// await this.$pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
+			// if (this.consentData[id].initData) {
+			// 	console.log(this.consentData[id].initData);
+				await this.$pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
+				await this.popUpCollection[id].renderOnlyPopup();
+				// if (this.consentData[id].initData.consent_message_type == "tracking_type") {
+				// 	await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);
+				// } else {
+				// 	await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
+				// }
+			// }
     }
   },
 
@@ -144,9 +148,19 @@ export default {
 			// this.$store.commit('toSignupPage', true);
 			this.$router.push({ name: 'signup' });
 		},
-    popupConsentModal(consentMsgID) {
-      // this.onChecking = false
-      this.popUpCollection[consentMsgID].renderOnlyPopup();
+    async popupConsentModal(id) {
+			console.log(id)
+      
+			await this.$pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
+			if (this.consentData[id].initData) {
+				if (this.consentData[id].initData.consent_message_type == "tracking_type") {
+					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);
+				} else {
+					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
+				}
+				
+				this.popUpCollection[id].renderOnlyPopup();
+			}
     },
 	}
 }

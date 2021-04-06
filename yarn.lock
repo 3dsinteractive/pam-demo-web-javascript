@@ -6976,10 +6976,10 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-pam4-tracker@^1.7.30:
-  version "1.7.30"
-  resolved "https://registry.yarnpkg.com/pam4-tracker/-/pam4-tracker-1.7.30.tgz#00f979f7e3e9522ec1bb273fbf9666a9b3541356"
-  integrity sha512-RfpScUDC9QxvHNsnt4JW+bi0shtTDClAmx081GT4gnKNeVLwegtYdpOB6esVQnuBYcl1Qc7IoicGTT22E1bOug==
+pam4-tracker@^1.7.31:
+  version "1.7.31"
+  resolved "https://registry.yarnpkg.com/pam4-tracker/-/pam4-tracker-1.7.31.tgz#c1f1c781d7a1254e556893436357b3be67699cae"
+  integrity sha512-0VMvg1YGIV9XF0OAbpbaSLN/5IIS1/xFbGTEt9wk4iiwFDkpxZ5V9DMTUsgYZOxDDEPfoEe3WKpyJYIoP9vxZA==
   dependencies:
     url-join "^4.0.1"
 
