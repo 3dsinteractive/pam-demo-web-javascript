@@ -141,16 +141,12 @@ export default {
 			this.$store.dispatch('logout')
 		},
 		toLoginPage () {
-			// this.$store.commit('toLoginPage', true);
 			this.$router.push({ name: 'login' });
 		},
 		toSignupPage () {
-			// this.$store.commit('toSignupPage', true);
 			this.$router.push({ name: 'signup' });
 		},
     async popupConsentModal(id) {
-			console.log(id)
-      
 			await this.$pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
 			if (this.consentData[id].initData) {
 				if (this.consentData[id].initData.consent_message_type == "tracking_type") {
@@ -158,7 +154,6 @@ export default {
 				} else {
 					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
 				}
-				
 				this.popUpCollection[id].renderOnlyPopup();
 			}
     },
@@ -175,9 +170,6 @@ export default {
 		text-decoration: none;
 		color: #FFFFFF !important;
 	}
-	// .navbar-link:hover {
-	// 	background-color: none;
-	// }
 	.user-menu {
 		cursor: pointer;
 		color: #FFFFFF;
