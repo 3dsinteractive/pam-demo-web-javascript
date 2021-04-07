@@ -7,7 +7,8 @@ export default ({ app }, inject) => {
     webPushPublicKey: '',
     baseApi: 'https://stgx.pams.ai',
     pusherAlias: '',
-    consentMessageId: '1qHkMGcSLHcJxyqZXRq6ovIM8GV',
+    trackingConsentMessageId: '1qHkMGcSLHcJxyqZXRq6ovIM8GV',
+    contactingConsentMessageIds: ['1qZBgGUvpBI4heCPQzfocNyuY1D', '1qZCeSoXiawAYwTz5mmop5YyJWf'],
     publicDBAlias: 'boodabest-public',
     loginDBAlias: 'boodabest-login',
   }
