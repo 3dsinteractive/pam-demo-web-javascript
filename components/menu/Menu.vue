@@ -107,17 +107,8 @@ export default {
 	
   async mounted() {
     for (let id in this.consentData) {
-			// await this.$pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
-			// if (this.consentData[id].initData) {
-			// 	console.log(this.consentData[id].initData);
 				await this.$pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
 				await this.popUpCollection[id].renderOnlyPopup();
-				// if (this.consentData[id].initData.consent_message_type == "tracking_type") {
-				// 	await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);
-				// } else {
-				// 	await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
-				// }
-			// }
     }
   },
 
@@ -149,12 +140,13 @@ export default {
     async popupConsentModal(id) {
 			await this.$pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
 			if (this.consentData[id].initData) {
+				console.log(this.consentData[id].initData)
 				if (this.consentData[id].initData.consent_message_type == "tracking_type") {
 					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);
 				} else {
 					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
 				}
-				this.popUpCollection[id].renderOnlyPopup();
+				this.popUpCollection[id].renderOnlyPopup(true);
 			}
     },
 	}
