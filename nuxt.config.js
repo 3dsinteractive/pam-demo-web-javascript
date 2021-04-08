@@ -1,6 +1,8 @@
 const pkg = require('./package')
 
 module.exports = {
+    ssr: false,
+
     /*
      ** Headers of the page
      */
@@ -78,7 +80,8 @@ module.exports = {
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/font-awesome',
-        '@nuxtjs/axios'
+        '@nuxtjs/axios',
+        'cookie-universal-nuxt',
     ],
     /*
      ** Axios module configuration

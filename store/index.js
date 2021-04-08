@@ -302,43 +302,49 @@ export const mutations = {
       }
     } */
 
-    export const actions = {
-        async addToCart({ commit }, id) {
-            commit('addToCart', id);
-            this.$pam.send('add_to_cart', '', { product_id: id });
-        },
+export const actions = {
+    async addToCart({ commit }, id) {
+        commit('addToCart', id);
+        this.$pam.send('add_to_cart', '', { product_id: id });
+    },
 
-        async removeFromCart({ commit }, id) {
-            commit('removeFromCart', id);
-            this.$pam.send('remove_from_cart', '', { product_id: id })
-        },
+    async removeFromCart({ commit }, id) {
+        commit('removeFromCart', id);
+        this.$pam.send('remove_from_cart', '', { product_id: id })
+    },
 
-        async login({ commit }, { email, password }) {
-            const req = { email, password }
-            const { data } = await this.$axios.post('/login', req)
-            await this.$pam.consentManager.userLogin({
-                idKey: 'customer',
-                id: data.data.customer_id
-            })
-            commit('isUserLoggedIn', true)
-            commit('setUserName', email)
-        },
+    async login({ commit }, { email, password }) {
+        const req = { email, password }
+        const { data } = await this.$axios.post('/login', req)
+        await this.$pam.consentManager.userLogin({
+            idKey: 'customer',
+            id: data.data.customer_id
+        })
+        commit('isUserLoggedIn', true)
+        commit('setUserName', email)
 
-        async signup({ commit }, { email, password, consentIds }) {
-            const req = {
-                email,
-                mobile: '',
-                password,
-                consent_ids: consentIds.join(',')
-            }
-            const { data } = await this.$axios.post('/register', req)
-            commit('isUserSignedUp', true)
-        },
+        window.$nuxt.$cookies.set('isUserLoggedIn', true);
+        window.$nuxt.$cookies.set('setUserName', email);
+    },
 
-        async logout({ commit }) {
-            await this.$pam.consentManager.userLogout()
-            commit('isUserLoggedIn', false)
-            commit('isUserSignedUp', false)
-            this.$router.push({ name: 'index' });
-        },
-    }
+    async signup({ commit }, { email, password, consentIds }) {
+        const req = {
+            email,
+            mobile: '',
+            password,
+            consent_ids: consentIds.join(',')
+        }
+        const { data } = await this.$axios.post('/register', req)
+        commit('isUserSignedUp', true)
+    },
+
+    async logout({ commit }) {
+        await this.$pam.consentManager.userLogout()
+        commit('isUserLoggedIn', false)
+        commit('isUserSignedUp', false)
+        this.$router.push({ name: 'index' });
+
+        this.$cookies.remove('isUserLoggedIn');
+        this.$cookies.remove('setUserName');
+    },
+}

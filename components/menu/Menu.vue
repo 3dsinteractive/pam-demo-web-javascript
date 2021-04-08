@@ -140,14 +140,13 @@ export default {
     async popupConsentModal(id) {
 			await this.$pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
 			if (this.consentData[id].initData) {
-				console.log(this.consentData[id].initData)
 				if (this.consentData[id].initData.consent_message_type == "tracking_type") {
 					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);
 				} else {
 					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
 				}
-				this.popUpCollection[id].renderOnlyPopup(true);
 			}
+			this.popUpCollection[id].renderOnlyPopup(true);
     },
 	}
 }

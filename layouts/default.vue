@@ -25,7 +25,8 @@ export default {
     VmLoginModal,
     VmRegistrationModal,
     VmCartModal
-  }
+  },
+  middleware: ['auth','pam']
 }
 </script>
 
