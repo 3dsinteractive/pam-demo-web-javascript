@@ -1,6 +1,6 @@
 <template>
 	<div class="user-menu-container">
-		<div class="navbar-item has-dropdown is-hoverable user-menu">
+		<div v-if="!isUserLoggedIn" class="navbar-item has-dropdown is-hoverable user-menu">
 			<a class="navbar-link">
 				<span class="icon">
 					<i class="fa fa-user"></i>
@@ -8,10 +8,10 @@
 			</a>
 			
 		  <div class="navbar-dropdown">
-        <a class="navbar-item" v-if="!isUserLoggedIn" @click="toSignupPage">
+        <a class="navbar-item" @click="toSignupPage">
 					{{ signupLabel }}
         </a>
-				<a class="navbar-item" v-if="!isUserLoggedIn" @click="toLoginPage">
+				<a class="navbar-item" @click="toLoginPage">
 					{{ loginLabel }}
 				</a>
 				<hr class="navbar-divider">
