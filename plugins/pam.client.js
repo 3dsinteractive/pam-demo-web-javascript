@@ -11,6 +11,7 @@ export default ({ app }, inject) => {
         contactingConsentMessageIds: ['1qZBgGUvpBI4heCPQzfocNyuY1D', '1qZCeSoXiawAYwTz5mmop5YyJWf'],
         publicDBAlias: 'boodabest-public',
         loginDBAlias: 'boodabest-login',
+        loginKey: 'customer'
     }
 
     const pam = new Pam(config)

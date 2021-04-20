@@ -1,5 +1,5 @@
 export default function(context) {
-    context.app.$pam.send('page_view', '', {})
+    context.app.$pam.track('page_view', {})
         .then((res) => {
             // response
         })
