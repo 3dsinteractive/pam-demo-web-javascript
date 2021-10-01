@@ -1,4 +1,4 @@
-import Pam from '3dsinteractive/pamsdk'
+import Pam from '@3dsinteractive/pamsdk'
 
 export default ({ app }, inject) => {
     // TODO: fill these configs
