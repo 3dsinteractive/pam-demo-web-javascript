@@ -1,9 +1,9 @@
-import Pam from 'pam4-tracker'
+import Pam from '3dsinteractive/pamsdk'
 
 export default ({ app }, inject) => {
     // TODO: fill these configs
     const config = {
-        autoTracking: false,
+        autoTracking: true,
         webPushPublicKey: '',
         baseApi: 'https://stgx.pams.ai',
         pusherAlias: '',
@@ -11,7 +11,8 @@ export default ({ app }, inject) => {
         contactingConsentMessageIds: ['1qZBgGUvpBI4heCPQzfocNyuY1D', '1qZCeSoXiawAYwTz5mmop5YyJWf'],
         publicDBAlias: 'boodabest-public',
         loginDBAlias: 'boodabest-login',
-        loginKey: 'customer'
+        loginKey: 'customer',
+        disableInstantPopupUI: true,
     }
 
     const pam = new Pam(config)
