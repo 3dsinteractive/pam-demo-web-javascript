@@ -3,7 +3,7 @@ import Pam from '@3dsinteractive/pamsdk'
 export default ({ app }, inject) => {
     // TODO: fill these configs
     const config = {
-        autoTracking: false,
+        autoTracking: true,
         webPushPublicKey: '',
         baseApi: 'https://stgx.pams.ai',
         pusherAlias: '',
@@ -13,6 +13,7 @@ export default ({ app }, inject) => {
         loginDBAlias: 'boodabest-login',
         loginKey: 'customer',
         disableInstantPopupUI: false,
+        // enableFacebookTracking: false,
     }
 
     const pam = new Pam(config)
