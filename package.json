@@ -26,7 +26,7 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "@3dsinteractive/pamsdk": "^1.0.18",
+        "@3dsinteractive/pamsdk": "^1.0.21",
         "@nuxtjs/axios": "^5.13.1",
         "@nuxtjs/font-awesome": "^1.0.4",
         "babel-polyfill": "^6.26.0",
