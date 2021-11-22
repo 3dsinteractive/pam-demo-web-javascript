@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@3dsinteractive/pamsdk@^1.0.21":
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/@3dsinteractive/pamsdk/-/pamsdk-1.0.21.tgz#142c3b4e795bd3d31ef499edb4b73767f2191c30"
-  integrity sha512-gJfqdzVZXdTiS0lc+fM3PH5xIgVTAM3murdi9kBl2ksIqdSNbGQgRxcxIkRb3ZfkWQNR604Cx/mSFr4L+dMv8A==
+"@3dsinteractive/pamsdk@^1.0.23":
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/@3dsinteractive/pamsdk/-/pamsdk-1.0.23.tgz#98279f179093aeedbd179e17296552ba9f8e8435"
+  integrity sha512-qaZ3l2lzZPbeLYgYReGIgQ7PUDL4II7W/RpmgqJN0lilFQEO1sa8sIO8+yi7oN1+AnndT30YscSQzXiFZc1giw==
   dependencies:
     url-join "^4.0.1"
 
