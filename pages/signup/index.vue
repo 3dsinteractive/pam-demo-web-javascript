@@ -163,13 +163,7 @@ export default {
   },
   
   async mounted() {
-    for (let id in this.contactingConsentData) {
-      await window.pam && window.pam.consentManager.createPopup(id,false,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
-      if (this.popUpCollection[id]) {
-        await this.popUpCollection[id].renderOnlyPopup();
-        await this.popUpCollection[id].unAcceptAllConsent();        
-      }
-    }
+    await this.initConsentPopup()
   },
 
   computed: {
@@ -193,9 +187,25 @@ export default {
         }
       }
     },
-    popupConsentModal(consentMsgID) {
-      this.onChecking = false
-      this.popUpCollection[consentMsgID].renderOnlyPopup();
+    async initConsentPopup() {
+      if (window.pam) {
+        for (let id in this.contactingConsentData) {
+          await window.pam.consentManager.createPopup(id,false,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
+          if (this.popUpCollection[id]) {
+            await this.popUpCollection[id].renderOnlyPopup();
+            await this.popUpCollection[id].unAcceptAllConsent();        
+          }
+        }
+      }
+    },
+    async popupConsentModal(consentMsgID) {
+      if (!this.popUpCollection[consentMsgID]) {
+        await this.initConsentPopup();
+      }
+      if (this.popUpCollection[consentMsgID]) {
+        this.onChecking = false
+        this.popUpCollection[consentMsgID].renderOnlyPopup();        
+      }
     },
     consentChecking(consentMsgID) {
       this.onChecking = true;
@@ -240,10 +250,6 @@ export default {
           password: this.password,
           consentIds: consentIDs,
         })
-        // this.isFormSuccess = true;
-        // this.$store.commit('setUserName', this.name);
-        // this.$store.commit('isUserSignedUp', this.isFormSuccess);
-        // this.$store.commit('isUserLoggedIn', this.isFormSuccess);
       }
 
       if (!this.name) {
@@ -327,8 +333,11 @@ export default {
   watch: {
       acceptedConsent: async function () {
         if (this.onChecking) {
-          if (this.acceptedConsent.includes(this.checkingBoxID)) {
-              await this.popUpCollection[this.checkingBoxID].acceptAllConsent(false); 
+          if (!this.popUpCollection[consentMsgID]) {
+            await this.initConsentPopup();
+          }
+          if (this.acceptedConsent.includes(this.checkingBoxID) && this.popUpCollection[this.checkingBoxID]) {
+            await this.popUpCollection[this.checkingBoxID].acceptAllConsent(false); 
           } else {
             await this.popUpCollection[this.checkingBoxID].unAcceptAllConsent();
           }

@@ -35,17 +35,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- <div class="navbar-item">
-			<div class="field is-grouped">
-				<p class="control user-menu" v-if="!isUserLoggedIn" @click="toSignupPage">
-						<span>{{ signupLabel }}</span>
-				</p>
-				<p class="control user-menu" v-if="!isUserLoggedIn" @click="toLoginPage">
-						<span>{{ loginLabel }}</span>
-				</p>
-			</div>
-		</div> -->
 		<div v-if="isUserLoggedIn" class="navbar-item has-dropdown is-hoverable">
 			<a class="navbar-link">
 				Welcome {{ getUserName }}
@@ -102,18 +91,12 @@ export default {
         }
       },
 			popUpCollection: {},
-			temp: {},
 		}
 	},
 	
-  async mounted() {
-    for (let id in this.consentData) {
-				await window.pam && window.pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
-				if (this.popUpCollection[id]) {
-					await this.popUpCollection[id].renderOnlyPopup();	
-				}
-    }
-  },
+	async mounted() {
+		await this.initConsentPopup()
+	},
 
 	computed: {
 		isUserLoggedIn () {
@@ -140,18 +123,34 @@ export default {
 		toSignupPage () {
 			this.$router.push({ name: 'signup' });
 		},
-    async popupConsentModal(id) {
-			await window.pam && window.pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
-			if (this.consentData[id].initData) {
-				if (this.consentData[id].initData.consent_message_type == "tracking_type") {
-					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);
-				} else {
-					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
+		async initConsentPopup() {
+			if (window.pam) {
+				for (let id in this.consentData) {
+						await window.pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
+						if (this.popUpCollection[id]) {
+							await this.popUpCollection[id].renderOnlyPopup();	
+						}
 				}
 			}
-			this.popUpCollection[id].renderOnlyPopup(true);
+		},
+    async popupConsentModal(id) {
+			// Init consent popup (work-around)
+			if (!this.popUpCollection[id]) {
+				await this.initConsentPopup()
+			}
+			if (this.popUpCollection[id] && window.pam) { 
+				await window.pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
+				if (this.consentData[id].initData) {
+					if (this.consentData[id].initData.consent_message_type == "tracking_type") {
+						await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);
+					} else {
+						await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.contacting_permission);
+					}
+				}
+				this.popUpCollection[id].renderOnlyPopup(true);
+			}
     },
-	}
+	},
 }
 </script>
 
