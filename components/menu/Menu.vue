@@ -91,11 +91,8 @@ export default {
         }
       },
 			popUpCollection: {},
+			checkInitConsentPopup: setInterval(() => this.initConsentPopup(), 1000),
 		}
-	},
-	
-	async mounted() {
-		await this.initConsentPopup()
 	},
 
 	computed: {
@@ -125,6 +122,7 @@ export default {
 		},
 		async initConsentPopup() {
 			if (window.pam) {
+				clearInterval(this.checkInitConsentPopup)
 				for (let id in this.consentData) {
 						await window.pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
 						if (this.popUpCollection[id]) {

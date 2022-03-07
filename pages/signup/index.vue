@@ -159,11 +159,8 @@ export default {
       checkingBoxID: '',
       consentComplete: false,
       onChecking: false,
+      checkInitConsentPopup: setInterval(() => this.initConsentPopup(), 1000),
     };
-  },
-  
-  async mounted() {
-    await this.initConsentPopup()
   },
 
   computed: {
@@ -189,6 +186,7 @@ export default {
     },
     async initConsentPopup() {
       if (window.pam) {
+        clearInterval(this.checkInitConsentPopup)
         for (let id in this.contactingConsentData) {
           await window.pam.consentManager.createPopup(id,false,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
           if (this.popUpCollection[id]) {
