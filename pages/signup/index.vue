@@ -331,7 +331,7 @@ export default {
   watch: {
       acceptedConsent: async function () {
         if (this.onChecking) {
-          if (!this.popUpCollection[consentMsgID]) {
+          if (!this.popUpCollection[this.checkingBoxID]) {
             await this.initConsentPopup();
           }
           if (this.acceptedConsent.includes(this.checkingBoxID) && this.popUpCollection[this.checkingBoxID]) {
