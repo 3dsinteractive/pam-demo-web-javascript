@@ -164,9 +164,11 @@ export default {
   
   async mounted() {
     for (let id in this.contactingConsentData) {
-      await window.pam.consentManager.createPopup(id,false,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
-      await this.popUpCollection[id].renderOnlyPopup();
-      await this.popUpCollection[id].unAcceptAllConsent();
+      await window.pam && window.pam.consentManager.createPopup(id,false,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
+      if (this.popUpCollection[id]) {
+        await this.popUpCollection[id].renderOnlyPopup();
+        await this.popUpCollection[id].unAcceptAllConsent();        
+      }
     }
   },
 

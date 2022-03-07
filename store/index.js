@@ -305,18 +305,18 @@ export const mutations = {
 export const actions = {
     async addToCart({ commit }, id) {
         commit('addToCart', id);
-        window.pam.track('add_to_cart', { product_id: id });
+        window.pam && window.pam.track('add_to_cart', { product_id: id });
     },
 
     async removeFromCart({ commit }, id) {
         commit('removeFromCart', id);
-        window.pam.track('remove_from_cart', { product_id: id })
+        window.pam && window.pam.track('remove_from_cart', { product_id: id })
     },
 
     async login({ commit }, { email, password }) {
         const req = { email, password }
         const { data } = await this.$axios.post('/login', req)
-        await window.pam.consentManager.userLogin(data.data.customer_id)
+        await window.pam && window.pam.consentManager.userLogin(data.data.customer_id)
         commit('isUserLoggedIn', true)
         commit('setUserName', email)
 
@@ -336,7 +336,7 @@ export const actions = {
     },
 
     async logout({ commit }) {
-        await window.pam.consentManager.userLogout()
+        await window.pam && window.pam.consentManager.userLogout()
         commit('isUserLoggedIn', false)
         commit('isUserSignedUp', false)
         this.$router.push({ name: 'index' });

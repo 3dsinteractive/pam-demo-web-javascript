@@ -112,7 +112,7 @@ export default {
           database: 'call-center-login'
         }
 
-        await window.pam.consentManager.submitConsent(payload, { sms: mobileNo });
+        await window.pam && window.pam.consentManager.submitConsent(payload, { sms: mobileNo });
       }
     },
   },

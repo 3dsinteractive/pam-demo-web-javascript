@@ -108,8 +108,10 @@ export default {
 	
   async mounted() {
     for (let id in this.consentData) {
-				await window.pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
-				await this.popUpCollection[id].renderOnlyPopup();
+				await window.pam && window.pam.consentManager.createPopup(id,true,this.sdkCallback).then((popUp) => {this.popUpCollection[id] = popUp});
+				if (this.popUpCollection[id]) {
+					await this.popUpCollection[id].renderOnlyPopup();	
+				}
     }
   },
 
@@ -139,7 +141,7 @@ export default {
 			this.$router.push({ name: 'signup' });
 		},
     async popupConsentModal(id) {
-			await window.pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
+			await window.pam && window.pam.consentManager.getCustomerConsentDetail(id).then((msgData) => {this.consentData[id].initData = msgData});
 			if (this.consentData[id].initData) {
 				if (this.consentData[id].initData.consent_message_type == "tracking_type") {
 					await this.popUpCollection[id].acceptSpecificConsent(this.consentData[id].initData.tracking_permission);

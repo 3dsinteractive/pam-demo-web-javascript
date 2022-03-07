@@ -82,6 +82,7 @@ module.exports = {
         '@nuxtjs/font-awesome',
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
+        '@nuxtjs/gtm',
     ],
     /*
      ** Axios module configuration
@@ -94,5 +95,13 @@ module.exports = {
     server: {
         port: 8000,
         host: '0.0.0.0',
+    },
+
+    gtm: {
+        enabled: true,
+        id: 'GTM-PK5V92V',
+        debug: true,
+        pageTracking: true,
+        respectDoNotTrack: false,
     },
 }

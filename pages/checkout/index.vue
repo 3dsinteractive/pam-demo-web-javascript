@@ -138,7 +138,7 @@ export default {
       return images('./' + imgName)
     },
     toPurchasePage() {
-      window.pam.track('purchase_success', {
+      window.pam && window.pam.track('purchase_success', {
         'product_ids': this.products.map(p => p.id).join(','),
         'amount': this.getGrandTotal()
       })
